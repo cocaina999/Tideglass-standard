@@ -1,6 +1,6 @@
 ---
 name: tideglass
-description: Tideglass, a premium UI material and touch standard - frosted sea glass to read on, squishy jelly controls that dent and peel under a finger, and a liquid tide at the scroll edges where content shows through (like a Telegram chat header). Use when designing, building or reviewing any screen, component, design system or theme in the Tideglass style, in any brand color, on the web, SwiftUI or Compose.
+description: Tideglass UI standard - frosted sea-glass surfaces for text, soft jelly controls that dent when pressed and spring back on release, and a see-through tide at scroll edges. Use when designing, building or reviewing a screen, component, theme or design system in the Tideglass style, in any brand color, for the web, SwiftUI or Compose.
 license: MIT
 metadata:
   version: "1.0.0"
@@ -11,7 +11,7 @@ metadata:
 
 **Read on sea glass. Touch jelly. See through the tide.**
 
-Tideglass is a UI standard with three materials. Sea glass is frosted, tinted and matte, for reading. Jelly is gummy, lit from inside and squishy, for touching. Tide is a liquid veil at scroll edges, for seeing through. It is a deliberate alternative to Apple's Liquid Glass: no lensing, no moving highlights, no color borrowed from content.
+Tideglass is a UI standard with three materials. Sea glass (frosted, tinted, matte) is for reading. Jelly (soft, lit from inside, squishy) is for touching. Tide (a clear veil at scroll edges) is for seeing through. Unlike Apple's Liquid Glass, it has no lensing, no moving highlights and no color borrowed from content.
 
 This file is the working summary. The full standard is in [spec/](spec/README.md); every rule below has an ID you can cite in a review.
 
@@ -106,7 +106,7 @@ Use the same tokens ([tokens/tideglass.tokens.json](tokens/tideglass.tokens.json
 | Web API, SwiftUI, Compose, tokens | [11 Platforms](spec/11-platforms.md) |
 | Ship checklist and common mistakes | [12 Review](spec/12-review.md) |
 
-Working examples: [demo/home.html](demo/home.html) (assistant home), [demo/chat.html](demo/chat.html) (chat with tide header and composer), [demo/controls.html](demo/controls.html) (quick settings), [demo/index.html](demo/index.html) (specimen of everything).
+Working examples: [demo/fitness.html](demo/fitness.html) (running tracker: auto tide header, chart card, media with a tide caption, tab bar with orb), [demo/messages.html](demo/messages.html) (group chat: tide header, bubbles, composer, long-press reactions), [demo/smart-home.html](demo/smart-home.html) (smart home: segmented rooms, toggle tiles, slider, Firm button), [demo/index.html](demo/index.html) (specimen of everything).
 
 ## Before you hand over a screen
 

@@ -1,6 +1,6 @@
 # 10 · Accessibility
 
-Soft materials are only premium if everyone can use them. Every setting below is honored automatically from the operating system, and each can also be offered as an in-app setting through a data attribute on `<html>`.
+A material that some people can't read or use has failed, however good it looks. Every setting below is honored automatically from the operating system, and each can also be offered as an in-app setting through a data attribute on `<html>`.
 
 ## Settings people turn on
 

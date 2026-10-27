@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en" data-tg-brand="kelly">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tern · Tideglass demo</title>
+<link rel="stylesheet" href="../kit/tideglass.css">
+<link rel="stylesheet" href="../kit/tideglass-presets.css">
+<link rel="stylesheet" href="assets/demo.css">
+<script src="assets/demo.js"></script>
+</head>
+<body class="tg-ground tg-grain p-body d-pattern r-app">
+<div class="p-screen">
+
+  <!-- Tide: rises once content scrolls under it. Only primary text and jelly controls live in it. -->
+  <header class="tg-tide tg-tide-top" data-tide="auto">
+    <div class="p-status" aria-hidden="true">
+      <span>7:52</span>
+      <span><svg class="tg-icon"><use href="#i-signal"/></svg><svg class="tg-icon"><use href="#i-wifi"/></svg><svg class="tg-icon"><use href="#i-battery"/></svg></span>
+    </div>
+    <div class="tg-appbar">
+      <span class="s-mark tg-jelly tg-lagoon" aria-hidden="true"></span>
+      <span class="tg-appbar-title">Tern</span>
+      <button class="tg-icon-btn" aria-label="Training calendar"><svg class="tg-icon"><use href="#i-calendar"/></svg></button>
+      <button class="tg-avatar tg-press" aria-label="Your profile">RA</button>
+    </div>
+  </header>
+
+  <main class="p-main">
+    <div class="r-hello">
+      <small>Thursday, March 6</small>
+      <h1 class="tg-type-title">Good run, Rae</h1>
+    </div>
+
+    <section class="tg-card tg-grain r-week" aria-label="Distance">
+      <div class="r-week-top">
+        <div>
+          <span class="r-label" id="r-range">This week</span>
+          <span class="r-big"><span id="r-km">15.3</span><small>km</small></span>
+        </div>
+        <div class="tg-seg" role="tablist" aria-label="Range" id="r-seg">
+          <span class="tg-blob" aria-hidden="true"></span>
+          <button class="tg-seg-item" role="tab" aria-selected="true" data-km="15.3" data-label="This week" data-goal="9.7 km to your 25 km goal">Week</button>
+          <button class="tg-seg-item" role="tab" aria-selected="false" tabindex="-1" data-km="61.8" data-label="March" data-goal="38.2 km to your 100 km goal">Month</button>
+          <button class="tg-seg-item" role="tab" aria-selected="false" tabindex="-1" data-km="214" data-label="2026" data-goal="On pace for 1,040 km">Year</button>
+        </div>
+      </div>
+      <div class="r-bars" role="img" aria-label="Distance by day: Monday 4.0 km, Tuesday 5.1 km, Wednesday rest, Thursday 6.2 km">
+        <div style="--h:.52"><i></i><span>M</span></div>
+        <div style="--h:.66"><i></i><span>T</span></div>
+        <div style="--h:0"><i></i><span>W</span></div>
+        <div class="is-today" style="--h:.8"><i></i><span>T</span></div>
+        <div style="--h:0"><i></i><span>F</span></div>
+        <div style="--h:0"><i></i><span>S</span></div>
+        <div style="--h:0"><i></i><span>S</span></div>
+      </div>
+      <div class="r-goal"><span id="r-goal">9.7 km to your 25 km goal</span><span>3 runs</span></div>
+    </section>
+
+    <div class="r-stats">
+      <div class="tg-card"><svg class="tg-icon" aria-hidden="true"><use href="#i-timer"/></svg><span class="r-stat">1<small>h</small> 22<small>m</small></span><span>Time</span></div>
+      <div class="tg-card"><svg class="tg-icon" aria-hidden="true"><use href="#i-flame"/></svg><span class="r-stat">5:21<small>/km</small></span><span>Avg pace</span></div>
+      <div class="tg-card"><svg class="tg-icon" aria-hidden="true"><use href="#i-peak"/></svg><span class="r-stat">186<small>m</small></span><span>Climb</span></div>
+    </div>
+
+    <figure class="d-media r-map">
+      <svg viewBox="0 0 360 200" role="img" aria-label="Map of this morning's route along the river">
+        <rect class="m-land" width="360" height="200"/>
+        <path class="m-park" d="M196 0h164v84c-40 10-92 6-128-18-18-12-30-36-36-66z"/>
+        <path class="m-water" d="M0 112c50-14 92 6 136-6s86-44 130-38 70 18 94 12v30c-30 8-60-4-96-8s-80 24-126 36S36 150 0 150z"/>
+        <g class="m-road" fill="none" stroke-width="6" stroke-linecap="round">
+          <path d="M-10 40h380M-10 186h380M70 -10v220M300 -10v220M160 -10l30 220"/>
+        </g>
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path class="m-case" stroke-width="9" d="M70 100c26-10 52 2 80-6s52-34 86-36 52 8 64 20v26c-20 18-54 10-82 14s-56 24-86 30-50-8-62-20z"/>
+          <path class="m-route" stroke-width="4.5" d="M70 100c26-10 52 2 80-6s52-34 86-36 52 8 64 20v26c-20 18-54 10-82 14s-56 24-86 30-50-8-62-20z"/>
+        </g>
+        <circle class="m-dot" cx="70" cy="100" r="7" stroke-width="3"/>
+      </svg>
+      <figcaption class="tg-tide"><span>Riverside loop</span><span class="tg-num">6.2 km · 31:04</span></figcaption>
+    </figure>
+
+    <div class="tg-card tg-grain r-next">
+      <div>
+        <h3>Saturday: long run</h3>
+        <p>10 km at an easy pace. Slow enough that you could hold a conversation.</p>
+      </div>
+      <div class="s-row" role="group" aria-label="Remind me">
+        <button class="tg-chip" aria-pressed="true"><svg class="tg-icon"><use href="#i-bell"/></svg>Sat, 7 AM</button>
+        <button class="tg-chip" aria-pressed="false">Fri, 8 PM</button>
+        <button class="tg-chip" aria-pressed="false">No reminder</button>
+      </div>
+    </div>
+
+    <div class="p-section-h">
+      <h2>Recent runs</h2>
+      <a href="#">All runs<svg class="tg-icon"><use href="#i-chevron"/></svg></a>
+    </div>
+
+    <div class="tg-list tg-grain" style="--tg-row-inset:68px">
+      <a class="tg-row" href="#">
+        <span class="tg-thumb tg-shallow"><svg class="tg-icon"><use href="#i-route"/></svg></span>
+        <span class="tg-row-main">
+          <span class="tg-row-title"><span>Riverside loop</span><span class="tg-row-meta">7:10 AM</span></span>
+          <span class="tg-row-sub"><span class="d-note">Fastest 6K this month</span>6.2 km · 31:04 · 5:01 /km</span>
+        </span>
+      </a>
+      <a class="tg-row" href="#">
+        <span class="tg-thumb"><svg class="tg-icon"><use href="#i-peak"/></svg></span>
+        <span class="tg-row-main">
+          <span class="tg-row-title"><span>Hill repeats</span><span class="tg-row-meta">Tue</span></span>
+          <span class="tg-row-sub">5.1 km · 29:48 · eight times up Cobb Hill</span>
+        </span>
+      </a>
+      <a class="tg-row" href="#">
+        <span class="tg-thumb"><svg class="tg-icon"><use href="#i-wave"/></svg></span>
+        <span class="tg-row-main">
+          <span class="tg-row-title"><span>Easy recovery</span><span class="tg-row-meta">Mon</span></span>
+          <span class="tg-row-sub">4.0 km · 24:10 · heart rate stayed low the whole way</span>
+        </span>
+      </a>
+      <a class="tg-row" href="#">
+        <span class="tg-thumb"><svg class="tg-icon"><use href="#i-flame"/></svg></span>
+        <span class="tg-row-main">
+          <span class="tg-row-title"><span>Long run</span><span class="tg-row-meta">Sun</span></span>
+          <span class="tg-row-sub">12.1 km · 1:06:12 · your longest run so far</span>
+        </span>
+      </a>
+    </div>
+  </main>
+
+  <!-- Bottom tide: content keeps showing faintly around the floating tab bar. -->
+  <div class="tg-tide tg-tide-bottom">
+    <nav class="tg-dock" aria-label="Main">
+      <div class="tg-tabbar tg-regular is-fill">
+        <span class="tg-blob" aria-hidden="true"></span>
+        <a class="tg-tab" href="#" aria-current="page"><svg class="tg-icon"><use href="#i-chart"/></svg>Today</a>
+        <a class="tg-tab" href="#"><svg class="tg-icon"><use href="#i-calendar"/></svg>Plan<span class="tg-badge">1</span></a>
+        <a class="tg-tab" href="#"><svg class="tg-icon"><use href="#i-route"/></svg>Routes</a>
+        <a class="tg-tab" href="#"><svg class="tg-icon"><use href="#i-user"/></svg>You</a>
+      </div>
+      <button class="tg-orb" id="start" aria-label="Start a run" data-haptic="impact"><svg class="tg-icon"><use href="#i-play"/></svg></button>
+    </nav>
+  </div>
+</div>
+
+<script src="assets/icons.js"></script>
+<script src="../kit/tideglass.js"></script>
+<script>
+  // The range control swaps the headline number and the goal line.
+  document.getElementById('r-seg').addEventListener('tg-change', e => {
+    const d = e.detail.item.dataset;
+    document.getElementById('r-km').textContent = d.km;
+    document.getElementById('r-range').textContent = d.label;
+    document.getElementById('r-goal').textContent = d.goal;
+  });
+
+  // Reminder chips are a single choice.
+  document.querySelectorAll('.r-next .tg-chip').forEach(chip => chip.addEventListener('click', () => {
+    document.querySelectorAll('.r-next .tg-chip').forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+    Tideglass.haptic('selection', chip);
+  }));
+
+  document.getElementById('start').addEventListener('click', () => Tideglass.toast('Run tracking isn’t part of this demo'));
+</script>
+</body>
+</html>

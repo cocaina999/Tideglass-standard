@@ -2,25 +2,31 @@
 
 **Read on sea glass. Touch jelly. See through the tide.**
 
-Tideglass is a premium UI material and touch standard: frosted sea glass for the things you read, squishy jelly for the things you touch, and a liquid tide at the scroll edges where content keeps showing through. It is a deliberate alternative to Apple's Liquid Glass, with a full spec, a dependency-free web kit, design tokens, native recipes and a Claude skill.
+Tideglass is a design standard for app interfaces. Text sits on frosted, tinted sea glass. Buttons and other controls are soft jelly that dents when you press and springs back when you let go. At the top and bottom of a scrolling screen, a clear tide lets content show through the bars.
 
-![Tideglass: sea glass, jelly and tide in three app screens](docs/assets/poster.jpg)
+It comes with a spec of numbered rules, a web kit with no dependencies, design tokens, SwiftUI and Compose recipes, and a Claude skill. It's meant as an alternative to Apple's Liquid Glass; [the differences](#not-liquid-glass) are below.
+
+Made by [@DiptamoyBarman](https://x.com/DiptamoyBarman).
+
+![Tideglass in three apps: a running tracker, a group chat and a smart home](docs/assets/poster.jpg)
 
 ## The three materials
 
 | | Sea glass | Jelly | Tide |
 |---|---|---|---|
 | **For** | Reading: cards, lists, bubbles, sheets, menus | Touching: buttons, tabs, chips, tiles, the orb | Seeing through: bars at scroll edges, captions on photos |
-| **Looks** | Frosted, softly tinted, matte, a still 1px pastel rim | Gummy and lit from inside: still sheen on top, glow pooling at the bottom, tinted light below | A liquid veil: dense where the text sits, fading to clear where content shows through |
-| **Moves** | Never. Reading surfaces stay still. | Dents under your finger, clings for a beat, peels back with one soft rebound | Rises as content scrolls under it |
+| **Looks** | Frosted, softly tinted, matte, with a still 1px pastel rim | Soft and lit from inside: a sheen on top, light gathered at the bottom | A veil that's dense where the text sits and fades to clear where content shows through |
+| **Moves** | Never | Dents when pressed, holds for a moment, then springs back with one small rebound | Fades in as content scrolls under it |
 
-Every element answers three questions, and the answers decide its look: **what do you do with it** (material), **does content pass underneath** (thickness: Solid, Thin, Regular, Thick), and **how important is it** (layer: Foam, Shallow, Lagoon, Deep). Size picks how strongly it squishes.
+To style an element, answer three questions. **What do people do with it?** That picks the material. **Does content scroll underneath?** That picks the thickness: Solid, Thin, Regular or Thick. **How important is it?** That picks the layer: Foam, Shallow, Lagoon or Deep. Its size then sets how much it squishes.
 
-| Light | Dark |
-|---|---|
-| ![Assistant home in light mode](docs/assets/home-light.webp) | ![Assistant home in dark mode, cornflower brand](docs/assets/home-dark.webp) |
-| ![Chat with a tide header in light mode](docs/assets/chat-light.webp) | ![Chat in dark mode, lavender brand](docs/assets/chat-dark.webp) |
-| ![Quick settings in light mode](docs/assets/controls-light.webp) | ![Quick settings in dark mode, amber brand](docs/assets/controls-dark.webp) |
+Three made-up apps, each with its own brand color and layout, in light and dark:
+
+| | Light | Dark |
+|---|---|---|
+| **Running tracker**, kelly | ![Running tracker in light mode: week chart, stats, route map](docs/assets/fitness-light.webp) | ![Running tracker in dark mode](docs/assets/fitness-dark.webp) |
+| **Group chat**, lavender | ![Group chat in light mode: messages under a tide header](docs/assets/messages-light.webp) | ![Group chat in dark mode](docs/assets/messages-dark.webp) |
+| **Smart home**, amber | ![Smart home in light mode: rooms, thermostat, device tiles](docs/assets/smart-home-light.webp) | ![Smart home in dark mode](docs/assets/smart-home-dark.webp) |
 
 ## Not Liquid Glass
 
@@ -80,7 +86,7 @@ import 'tideglass/presets.css';
 import Tideglass from 'tideglass';
 ```
 
-**Rebrand** with six inputs (tint, deep, ink and three rim pastels), or pick a preset: `seafoam`, `cornflower`, `lavender`, `amber`, `kelly`, `coral`. Dark mode, every state and every shadow derive from them, and `npm run check` proves every preset passes 15 contrast pairs in both themes.
+**Rebrand** with six inputs (tint, deep, ink and three rim pastels), or pick a preset: `seafoam`, `cornflower`, `lavender`, `amber`, `kelly`, `coral`. Dark mode, states and shadows are all derived from those six, and `npm run check` confirms every preset passes 15 contrast pairs in both themes.
 
 ## Demos
 
@@ -88,12 +94,12 @@ import Tideglass from 'tideglass';
 
 | Demo | Shows |
 |---|---|
-| [demo/index.html](demo/index.html) | The specimen: materials, depths, thickness, touch tiers, navigation, components, accessibility settings, with a live brand and theme switcher |
-| [demo/home.html](demo/home.html) | An assistant home with an auto tide header, tiles, a list and a tab bar with an orb |
-| [demo/chat.html](demo/chat.html) | A chat with a tide header (messages show through), a composer, long-press reactions and a working send |
-| [demo/controls.html](demo/controls.html) | Quick settings: toggle tiles, sliders, round tiles and a firm lock button |
+| [demo/index.html](demo/index.html) | The specimen: materials, layers, thickness, touch tiers, navigation, components and accessibility settings, with a brand and theme switcher |
+| [demo/fitness.html](demo/fitness.html) | A running tracker: week chart with a range switch, stat cards, a route map with a tide caption, reminder chips, and a tab bar with a start orb |
+| [demo/messages.html](demo/messages.html) | A group chat: messages scroll under the tide header, sender faces and names, a photo with a tide caption, long-press reactions, and a send that gets a reply |
+| [demo/smart-home.html](demo/smart-home.html) | A smart home: room tabs, a thermostat, a dimmer, device toggle tiles, scenes, and a firm "Lock all doors" button |
 
-Each demo takes URL parameters: `?brand=lavender&theme=dark&motion=reduce&transparency=reduce&contrast=more`.
+Each app has its own default brand. Any demo takes URL parameters to override it: `?brand=coral&theme=dark&motion=reduce&transparency=reduce&contrast=more`.
 
 ## What is in the repo
 
@@ -103,7 +109,7 @@ tideglass/
 ├── spec/                 The standard, in 12 chapters with numbered rules
 ├── kit/                  tideglass.css, tideglass-presets.css, tideglass.js
 ├── tokens/               DTCG design tokens, generated from the CSS
-├── demo/                 The specimen and three app screens
+├── demo/                 The specimen and three demo apps
 ├── docs/                 README images and the social preview
 └── tools/                Checks, token generation, springs, browser tests, screenshots
 ```
@@ -116,7 +122,7 @@ tideglass/
 
 ## Use it as a Claude skill
 
-[SKILL.md](SKILL.md) teaches Claude the standard: the three questions, the hard rules, the kit's markup and the review checklist. Install it for Claude Code by cloning into your skills folder:
+[SKILL.md](SKILL.md) gives Claude the standard in short form: the three questions, the hard rules, the kit's markup and the review checklist. Install it for Claude Code by cloning into your skills folder:
 
 ```sh
 git clone https://github.com/cocaina999/Tideglass-standard ~/.claude/skills/tideglass
@@ -144,11 +150,11 @@ Set `CHROME_PATH` if your browser is somewhere unusual.
 
 ## Browser support
 
-Chrome and Edge 115+, Safari 17.2+, Firefox 128+. Older engines degrade gracefully: springs fall back to cubic-bezier curves, auto tides stay on, and glass without `backdrop-filter` stays legible because contrast is measured without relying on blur.
+Chrome and Edge 115+, Safari 17.2+, Firefox 128+. Older browsers still work: springs fall back to cubic-bezier curves, auto tides stay on, and glass without `backdrop-filter` stays readable because contrast is measured without counting on blur.
 
 ## Accessibility
 
-Reduce motion, reduce transparency, increase contrast, forced colors, dark mode and 200% text are first-class outcomes, each honored from the OS and available as an in-app setting. Every touch interaction has a keyboard equivalent, and text is only placed on glass where its contrast is proven against the worst possible backdrop. See [chapter 10](spec/10-accessibility.md).
+Reduce motion, reduce transparency, increase contrast, forced colors, dark mode and 200% text all work, whether they come from the OS or from an in-app setting. Everything you can do by touch, you can do from the keyboard. Text only goes on glass where its contrast has been measured against the worst backdrop that can sit behind it. See [chapter 10](spec/10-accessibility.md).
 
 ## Contributing
 
@@ -156,4 +162,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Changes to the standard follow semantic 
 
 ## License
 
-[MIT](LICENSE). Tideglass is an independent project and is not affiliated with Apple.
+[MIT](LICENSE). Tideglass is an independent project and is not affiliated with Apple. Made by [@DiptamoyBarman](https://x.com/DiptamoyBarman).

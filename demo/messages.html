@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-tg-brand="lavender">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Chat · Tideglass demo</title>
+<title>Shoal · Tideglass demo</title>
 <link rel="stylesheet" href="../kit/tideglass.css">
 <link rel="stylesheet" href="../kit/tideglass-presets.css">
 <link rel="stylesheet" href="assets/demo.css">
 <script src="assets/demo.js"></script>
 </head>
-<body class="tg-ground p-body p-chat">
+<body class="tg-ground p-body d-pattern m-app">
 <div class="p-screen">
 
-  <!-- A Telegram-style header made of tide: messages scroll under it and stay faintly visible.
+  <!-- The header is a tide: messages scroll under it and stay faintly visible.
        Status text is primary ink at Label size (tide carries no secondary text). -->
   <header class="tg-tide tg-tide-top">
     <div class="p-status" aria-hidden="true">
@@ -20,9 +20,9 @@
       <span><svg class="tg-icon"><use href="#i-signal"/></svg><svg class="tg-icon"><use href="#i-wifi"/></svg><svg class="tg-icon"><use href="#i-battery"/></svg></span>
     </div>
     <div class="tg-appbar">
-      <a class="tg-icon-btn" href="home.html" aria-label="Back"><svg class="tg-icon"><use href="#i-back"/></svg></a>
-      <span class="tg-avatar tg-lagoon" aria-hidden="true">H</span>
-      <div class="p-who"><b>Harbor</b><span id="status">online</span></div>
+      <a class="tg-icon-btn" href="#" aria-label="Back"><svg class="tg-icon"><use href="#i-back"/></svg></a>
+      <span class="m-faces" aria-hidden="true"><span class="tg-avatar d-disc is-b">I</span><span class="tg-avatar d-disc is-c">T</span><span class="tg-avatar d-disc is-a">S</span></span>
+      <div class="p-who"><b>Saturday hike</b><span id="status">Ines, Theo, Sam, you</span></div>
       <button class="tg-icon-btn" id="more" aria-label="More" aria-haspopup="menu" aria-expanded="false"><svg class="tg-icon"><use href="#i-more"/></svg></button>
     </div>
   </header>
@@ -30,39 +30,56 @@
   <main class="p-log" id="log" aria-live="polite">
     <div class="p-day"><span class="tg-pill tg-regular">Today</span></div>
 
-    <div class="tg-bubble is-in" data-press="l" data-hold>Hi! Send me a photo, a link, or just describe it. I'll find where it's cheapest.<span class="tg-bubble-meta">7:41 PM</span></div>
-    <div class="p-gap"></div>
-    <div class="tg-bubble is-out" data-press="l" data-hold>Find this lamp under $70<span class="tg-bubble-meta">7:42 PM</span></div>
-    <figure class="tg-bubble is-out p-photo" data-press="l" data-hold>
-      <svg class="p-photo-art" viewBox="0 0 240 210" role="img" aria-label="Photo of a mushroom table lamp">
-        <defs>
-          <linearGradient id="room" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="#5E8389"/><stop offset="1" stop-color="#22383C"/></linearGradient>
-          <radialGradient id="glow" cx=".5" cy=".55" r=".5"><stop offset="0" stop-color="#FFD9A8" stop-opacity=".75"/><stop offset="1" stop-color="#FFD9A8" stop-opacity="0"/></radialGradient>
-          <linearGradient id="cap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0A574"/><stop offset="1" stop-color="#C8683F"/></linearGradient>
-          <linearGradient id="stem" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F7E6D2"/><stop offset="1" stop-color="#D9BFA3"/></linearGradient>
-        </defs>
-        <rect width="240" height="210" fill="url(#room)"/>
-        <rect y="150" width="240" height="60" fill="#1B2D30" opacity=".55"/>
-        <ellipse cx="120" cy="104" rx="104" ry="70" fill="url(#glow)"/>
-        <path d="M100 96h40l6 58H94z" fill="url(#stem)"/>
-        <ellipse cx="120" cy="156" rx="40" ry="8" fill="#E8D3BC"/>
-        <path d="M52 100C52 58 84 36 120 36s68 22 68 64c0 6-6 9-14 9H66c-8 0-14-3-14-9z" fill="url(#cap)"/>
-        <ellipse cx="96" cy="58" rx="9" ry="5" fill="#FBE3CF" opacity=".8"/>
-        <ellipse cx="146" cy="66" rx="7" ry="4" fill="#FBE3CF" opacity=".7"/>
-        <ellipse cx="122" cy="48" rx="5" ry="3" fill="#FBE3CF" opacity=".7"/>
-      </svg>
-      <!-- Tide on media: the caption sits in a liquid band, the photo keeps showing through. -->
-      <figcaption class="tg-tide">Seen at a friend's place<span class="tg-bubble-meta">7:42 PM</span></figcaption>
-    </figure>
-    <div class="p-gap"></div>
-    <div class="tg-bubble is-in" data-press="l" data-hold>Found it. Ceramic mushroom table lamp, 14 in. Cheapest right now: Shoreline Home at $64, then Driftwood &amp; Co at $68.<span class="tg-bubble-meta">7:44 PM</span></div>
-    <div class="tg-bubble is-in" data-press="l" data-hold>Want me to watch it and tell you if it drops below $60?<span class="tg-bubble-meta">7:44 PM</span>
-      <div class="p-reacts"><span class="tg-pill tg-lagoon">👍 1</span></div>
+    <div class="m-group">
+      <span class="tg-avatar d-disc is-b" aria-hidden="true">IN</span>
+      <div class="m-stack">
+        <div class="tg-bubble is-in" data-press="l" data-hold><b class="m-from">Ines</b>Forecast says clear skies Saturday. Are we still doing the ridge trail?<span class="tg-bubble-meta">9:12 AM</span></div>
+      </div>
+    </div>
+    <div class="m-group">
+      <span class="tg-avatar d-disc is-c" aria-hidden="true">TH</span>
+      <div class="m-stack">
+        <div class="tg-bubble is-in" data-press="l" data-hold><b class="m-from">Theo</b>I'm in. Can someone drive? My car's in the shop until Monday.<span class="tg-bubble-meta">9:14 AM</span></div>
+      </div>
     </div>
     <div class="p-gap"></div>
-    <div class="tg-bubble is-out" data-press="l" data-hold>Yes please. And send it here, not email.<span class="tg-bubble-meta">7:45 PM</span></div>
+    <div class="tg-bubble is-out" data-press="l" data-hold>I'll drive. Pick-ups at 7:30?<span class="tg-bubble-meta">9:20 AM</span></div>
+    <div class="tg-bubble is-out" data-press="l" data-hold>There's one seat left if Sam wants it<span class="tg-bubble-meta">9:20 AM</span></div>
     <div class="p-gap"></div>
-    <div class="tg-bubble is-in" data-press="l" data-hold>Done. I'll message you in this chat the moment it moves.<span class="tg-bubble-meta">7:45 PM</span></div>
+    <div class="m-group">
+      <span class="tg-avatar d-disc is-b" aria-hidden="true">IN</span>
+      <div class="m-stack">
+        <figure class="tg-bubble is-in d-media m-photo" data-press="l" data-hold>
+          <svg viewBox="0 0 240 180" role="img" aria-label="Photo of a mountain lake at sunrise">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6C9A8"/><stop offset=".55" stop-color="#E7A3A6"/><stop offset="1" stop-color="#9C8FC8"/></linearGradient>
+              <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8A8FCB"/><stop offset="1" stop-color="#3B4580"/></linearGradient>
+            </defs>
+            <rect width="240" height="180" fill="url(#sky)"/>
+            <circle cx="170" cy="60" r="15" fill="#FFEBCF" opacity=".9"/>
+            <path d="M0 112 44 64l26 24 34-42 46 58 28-22 62 34v64H0z" fill="#706CA2"/>
+            <path d="M104 46l-12 14 8 2 8-8 8 6-3-9z" fill="#F4E9F2" opacity=".85"/>
+            <path d="M0 126l36-24 28 16 34-24 34 28 38-16 36 18 34-10v66H0z" fill="#4A4B7F"/>
+            <rect y="130" width="240" height="50" fill="url(#lake)"/>
+            <path d="M150 142h40M142 152h52M158 162h22" stroke="#FFEBCF" stroke-opacity=".5" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 130l6-18 6 18zM24 130l5-13 5 13zM206 130l6-20 6 20zM218 130l5-14 5 14z" fill="#2D2F5E"/>
+          </svg>
+          <!-- Tide on media: the caption sits in a liquid band, the photo keeps showing through. -->
+          <figcaption class="tg-tide">The lake at the top, last June<span class="tg-bubble-meta">9:31 AM</span></figcaption>
+        </figure>
+        <div class="tg-bubble is-in" data-press="l" data-hold>Worth the early start. Clouds come in after noon.<span class="tg-bubble-meta">9:31 AM</span>
+          <div class="p-reacts"><span class="tg-pill tg-lagoon">🔥 2</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="m-group">
+      <span class="tg-avatar d-disc is-a" aria-hidden="true">SA</span>
+      <div class="m-stack">
+        <div class="tg-bubble is-in" data-press="l" data-hold><b class="m-from">Sam</b>Yes to the seat! I'll bring coffee for the car.<span class="tg-bubble-meta">9:34 AM</span></div>
+      </div>
+    </div>
+    <div class="p-gap"></div>
+    <div class="tg-bubble is-out" data-press="l" data-hold>Deal. I'll text when I'm outside.<span class="tg-bubble-meta">9:36 AM</span></div>
   </main>
 
   <div class="tg-tide tg-tide-bottom">
@@ -79,17 +96,17 @@
 
 <div class="tg-menu tg-thick tg-grain" id="menu" role="menu" hidden style="position:fixed;top:100px;right:12px">
   <button class="tg-menu-item" role="menuitem"><svg class="tg-icon"><use href="#i-search"/></svg>Search</button>
+  <button class="tg-menu-item" role="menuitem"><svg class="tg-icon"><use href="#i-photo"/></svg>Shared photos</button>
   <button class="tg-menu-item" role="menuitem"><svg class="tg-icon"><use href="#i-mute"/></svg>Mute</button>
-  <button class="tg-menu-item" role="menuitem"><svg class="tg-icon"><use href="#i-share"/></svg>Share chat</button>
   <hr>
-  <button class="tg-menu-item is-danger" role="menuitem" data-press="firm"><svg class="tg-icon"><use href="#i-trash"/></svg>Clear history</button>
+  <button class="tg-menu-item is-danger" role="menuitem" data-press="firm"><svg class="tg-icon"><use href="#i-away"/></svg>Leave group</button>
 </div>
 
 <div class="tg-menu tg-thick p-react" id="react" role="menu" aria-label="React" hidden>
   <button class="tg-key" role="menuitem" aria-label="Love">❤️</button>
   <button class="tg-key" role="menuitem" aria-label="Thumbs up">👍</button>
   <button class="tg-key" role="menuitem" aria-label="Laugh">😂</button>
-  <button class="tg-key" role="menuitem" aria-label="Wow">😮</button>
+  <button class="tg-key" role="menuitem" aria-label="Fire">🔥</button>
   <button class="tg-key" role="menuitem" aria-label="Thanks">🙏</button>
 </div>
 
@@ -101,6 +118,7 @@
   const icon = name => `<svg class="tg-icon"><use href="#i-${name}"/></svg>`;
   const time = () => new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   const toBottom = () => scrollTo({ top: document.documentElement.scrollHeight, behavior: Tideglass.reducedMotion() ? 'auto' : 'smooth' });
+  const people = status.textContent;
   addEventListener('load', () => scrollTo(0, document.documentElement.scrollHeight));
 
   // Mic becomes send once there is something to send. The new icon drops in, riding the peel.
@@ -114,40 +132,55 @@
     send.firstChild.classList.add('tg-drop');
   });
 
-  function bubble(text, side) {
+  function bubble(text, side, from) {
     const b = document.createElement('div');
     b.className = `tg-bubble is-${side} tg-arrive`;
     b.dataset.press = 'l';
     b.toggleAttribute('data-hold', true);
-    b.textContent = text;
+    if (from) {
+      const name = document.createElement('b');
+      name.className = 'm-from';
+      name.textContent = from;
+      b.appendChild(name);
+    }
+    b.appendChild(document.createTextNode(text));
     const meta = document.createElement('span');
     meta.className = 'tg-bubble-meta';
     meta.textContent = time();
     b.appendChild(meta);
-    log.appendChild(b);
     return b;
+  }
+
+  // Incoming messages sit in a group with the sender's face, like the ones above.
+  function group(face, disc, child) {
+    const g = document.createElement('div');
+    g.className = 'm-group';
+    g.innerHTML = `<span class="tg-avatar d-disc ${disc}" aria-hidden="true">${face}</span><div class="m-stack"></div>`;
+    g.lastChild.appendChild(child);
+    log.appendChild(g);
+    return g;
   }
 
   $('form').addEventListener('submit', e => {
     e.preventDefault();
     const text = msg.value.trim();
-    if (!text) { Tideglass.toast('Hold to record. This demo only types.'); return; }
+    if (!text) { Tideglass.toast('Hold to record. This demo only does text.'); return; }
     Tideglass.haptic('impact', send);
-    bubble(text, 'out');
+    log.appendChild(bubble(text, 'out'));
     msg.value = '';
     msg.dispatchEvent(new Event('input'));
     toBottom();
     setTimeout(() => {
-      status.textContent = 'typing…';
+      status.textContent = 'Theo is typing…';
       const typing = document.createElement('div');
       typing.className = 'tg-bubble is-in p-typing tg-arrive';
-      typing.innerHTML = '<span class="tg-typing" aria-label="Harbor is typing"><i></i><i></i><i></i></span>';
-      log.appendChild(typing);
+      typing.innerHTML = '<span class="tg-typing" aria-label="Theo is typing"><i></i><i></i><i></i></span>';
+      const g = group('TH', 'is-c', typing);
       toBottom();
       setTimeout(() => {
-        typing.remove();
-        status.textContent = 'online';
-        bubble('On it. I will check a few stores and come back.', 'in');
+        g.remove();
+        status.textContent = people;
+        group('TH', 'is-c', bubble('Sounds good. See you Saturday.', 'in', 'Theo'));
         toBottom();
       }, 1600);
     }, 500);

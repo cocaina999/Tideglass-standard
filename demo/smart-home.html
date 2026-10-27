@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" data-tg-brand="amber">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hearth · Tideglass demo</title>
+<link rel="stylesheet" href="../kit/tideglass.css">
+<link rel="stylesheet" href="../kit/tideglass-presets.css">
+<link rel="stylesheet" href="assets/demo.css">
+<script src="assets/demo.js"></script>
+</head>
+<body class="tg-ground tg-grain p-body">
+<div class="p-screen">
+
+  <header class="tg-tide tg-tide-top" data-tide="auto">
+    <div class="p-status" aria-hidden="true">
+      <span>6:48</span>
+      <span><svg class="tg-icon"><use href="#i-signal"/></svg><svg class="tg-icon"><use href="#i-wifi"/></svg><svg class="tg-icon"><use href="#i-battery"/></svg></span>
+    </div>
+    <div class="tg-appbar">
+      <span class="tg-appbar-title">Linden House</span>
+      <button class="tg-icon-btn" aria-label="Add a device"><svg class="tg-icon"><use href="#i-plus"/></svg></button>
+      <button class="tg-avatar tg-press" aria-label="Your profile">JM</button>
+    </div>
+  </header>
+
+  <main class="p-main">
+    <p class="h-summary" id="summary">2 lights on · back door unlocked</p>
+
+    <div class="tg-seg h-rooms" role="tablist" aria-label="Room" id="rooms">
+      <span class="tg-blob" aria-hidden="true"></span>
+      <button class="tg-seg-item" role="tab" aria-selected="true" data-now="21.5" data-set="22">Living room</button>
+      <button class="tg-seg-item" role="tab" aria-selected="false" tabindex="-1" data-now="20" data-set="20">Kitchen</button>
+      <button class="tg-seg-item" role="tab" aria-selected="false" tabindex="-1" data-now="18.5" data-set="18">Bedroom</button>
+    </div>
+
+    <section class="tg-card tg-grain h-climate" aria-label="Temperature">
+      <div class="h-climate-top">
+        <div>
+          <span class="tg-type-label-strong tg-text-2">Inside now</span>
+          <span class="h-temp" id="now">21.5°</span>
+          <p id="target">Heating to 22°</p>
+        </div>
+        <div class="h-step">
+          <button class="tg-icon-btn" id="up" aria-label="Warmer"><svg class="tg-icon"><use href="#i-plus"/></svg></button>
+          <button class="tg-icon-btn" id="down" aria-label="Cooler"><svg class="tg-icon"><use href="#i-minus"/></svg></button>
+        </div>
+      </div>
+      <div class="s-row" role="group" aria-label="Mode" id="modes">
+        <button class="tg-chip" aria-pressed="true">Auto</button>
+        <button class="tg-chip" aria-pressed="false">Heat</button>
+        <button class="tg-chip" aria-pressed="false">Cool</button>
+        <button class="tg-chip" aria-pressed="false">Off</button>
+      </div>
+    </section>
+
+    <section class="tg-card h-light" aria-label="Ceiling lights">
+      <div class="h-light-h">Ceiling lights<span id="level">70%</span></div>
+      <label class="p-slider">
+        <span class="tg-sr-only">Brightness</span>
+        <svg class="tg-icon" aria-hidden="true"><use href="#i-bulb"/></svg>
+        <input class="tg-slider" id="dim" type="range" min="0" max="100" value="70">
+      </label>
+    </section>
+
+    <div class="p-section-h"><h2>Devices</h2><a href="#">Edit<svg class="tg-icon"><use href="#i-chevron"/></svg></a></div>
+    <div class="h-tiles" id="tiles">
+      <button class="tg-tile" aria-pressed="true" data-on="On · 70%" data-light data-haptic="selection">
+        <span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-bulb"/></svg></span>
+        <span class="tg-tile-text">Ceiling<small>On · 70%</small></span>
+      </button>
+      <button class="tg-tile" aria-pressed="false" data-on="On" data-light data-haptic="selection">
+        <span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-lamp"/></svg></span>
+        <span class="tg-tile-text">Floor lamp<small>Off</small></span>
+      </button>
+      <button class="tg-tile" aria-pressed="false" data-on="Open" data-off="Closed" data-haptic="selection">
+        <span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-blinds"/></svg></span>
+        <span class="tg-tile-text">Blinds<small>Closed</small></span>
+      </button>
+      <button class="tg-tile" aria-pressed="true" data-on="Playing" data-off="Paused" data-haptic="selection">
+        <span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-speaker"/></svg></span>
+        <span class="tg-tile-text">Speaker<small>Playing</small></span>
+      </button>
+      <button class="tg-tile" aria-pressed="false" data-on="On" data-haptic="selection">
+        <span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-tv"/></svg></span>
+        <span class="tg-tile-text">TV<small>Off</small></span>
+      </button>
+      <button class="tg-tile" aria-pressed="false" data-on="Auto" data-haptic="selection">
+        <span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-fan"/></svg></span>
+        <span class="tg-tile-text">Air purifier<small>Off</small></span>
+      </button>
+    </div>
+
+    <div class="p-section-h"><h2>Scenes</h2></div>
+    <div class="h-scenes">
+      <button class="tg-tile tg-stack" data-toast="Morning: blinds open, lights at 60%"><span class="tg-tile-icon d-disc is-c"><svg class="tg-icon"><use href="#i-sunrise"/></svg></span>Morning</button>
+      <button class="tg-tile tg-stack" data-toast="Movie: lights at 15%, TV on"><span class="tg-tile-icon d-disc is-b"><svg class="tg-icon"><use href="#i-film"/></svg></span>Movie</button>
+      <button class="tg-tile tg-stack" data-toast="Away: lights off, heating down to 16°"><span class="tg-tile-icon d-disc is-a"><svg class="tg-icon"><use href="#i-away"/></svg></span>Away</button>
+      <button class="tg-tile tg-stack" data-toast="Bedtime: lights off in 10 minutes"><span class="tg-tile-icon d-disc is-t"><svg class="tg-icon"><use href="#i-moon"/></svg></span>Bedtime</button>
+    </div>
+
+    <section class="h-doors" aria-label="Doors">
+      <div class="p-section-h"><h2>Doors</h2></div>
+      <div class="tg-list tg-grain" style="--tg-row-inset:68px">
+        <div class="tg-row">
+          <span class="tg-thumb"><svg class="tg-icon"><use href="#i-door"/></svg></span>
+          <span class="tg-row-main">
+            <span class="tg-row-title"><span>Front door</span><span class="tg-row-meta">8:02 AM</span></span>
+            <span class="tg-row-sub">Locked</span>
+          </span>
+        </div>
+        <div class="tg-row">
+          <span class="tg-thumb tg-shallow"><svg class="tg-icon"><use href="#i-door"/></svg></span>
+          <span class="tg-row-main">
+            <span class="tg-row-title"><span>Back door</span><span class="tg-row-meta" id="back-time">6:31 PM</span></span>
+            <span class="tg-row-sub" id="back"><span class="d-note">Unlocked</span></span>
+          </span>
+        </div>
+      </div>
+      <!-- Locking is security: Firm, so it never bounces. -->
+      <button class="tg-btn" id="lock" data-press="firm"><svg class="tg-icon"><use href="#i-lock"/></svg>Lock all doors</button>
+    </section>
+  </main>
+
+  <div class="tg-tide tg-tide-bottom">
+    <nav class="tg-dock" aria-label="Main">
+      <div class="tg-tabbar tg-regular is-fill">
+        <span class="tg-blob" aria-hidden="true"></span>
+        <a class="tg-tab" href="#" aria-current="page"><svg class="tg-icon"><use href="#i-home"/></svg>Home</a>
+        <a class="tg-tab" href="#"><svg class="tg-icon"><use href="#i-bolt"/></svg>Energy</a>
+        <a class="tg-tab" href="#"><svg class="tg-icon"><use href="#i-bell"/></svg>Activity</a>
+        <a class="tg-tab" href="#"><svg class="tg-icon"><use href="#i-sliders"/></svg>Settings</a>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<script src="assets/icons.js"></script>
+<script src="../kit/tideglass.js"></script>
+<script>
+  const $ = id => document.getElementById(id);
+  const tiles = $('tiles'), ceiling = tiles.querySelector('.tg-tile');
+  let back = 'unlocked';
+
+  function summarize() {
+    const lights = tiles.querySelectorAll('[data-light][aria-pressed="true"]').length;
+    const lightText = lights === 0 ? 'All lights off' : lights === 1 ? '1 light on' : lights + ' lights on';
+    $('summary').textContent = lightText + ' · ' + (back === 'unlocked' ? 'back door unlocked' : 'all doors locked');
+  }
+
+  // Tiles are toggles: Deep when on, jelly Foam when off. Subtitles follow the state.
+  tiles.addEventListener('click', e => {
+    const tile = e.target.closest('.tg-tile');
+    if (!tile) return;
+    const on = tile.getAttribute('aria-pressed') !== 'true';
+    tile.setAttribute('aria-pressed', String(on));
+    tile.querySelector('small').textContent = on ? tile.dataset.on : (tile.dataset.off || 'Off');
+    summarize();
+  });
+
+  // The dimmer drives the ceiling tile too.
+  $('dim').addEventListener('input', e => {
+    const v = e.target.value;
+    $('level').textContent = v + '%';
+    ceiling.dataset.on = 'On · ' + v + '%';
+    ceiling.setAttribute('aria-pressed', String(v > 0));
+    ceiling.querySelector('small').textContent = v > 0 ? ceiling.dataset.on : 'Off';
+    summarize();
+  });
+
+  // Thermostat: half-degree steps; the line under the number says what the heating is doing.
+  let now = 21.5, set = 22;
+  const fmt = n => (Number.isInteger(n) ? n : n.toFixed(1)) + '°';
+  function climate() {
+    $('now').textContent = fmt(now);
+    $('target').textContent = set > now ? 'Heating to ' + fmt(set) : set < now ? 'Cooling to ' + fmt(set) : 'Holding at ' + fmt(set);
+  }
+  $('up').addEventListener('click', () => { set = Math.min(28, set + .5); climate(); });
+  $('down').addEventListener('click', () => { set = Math.max(10, set - .5); climate(); });
+  $('rooms').addEventListener('tg-change', e => { now = Number(e.detail.item.dataset.now); set = Number(e.detail.item.dataset.set); climate(); });
+
+  document.querySelectorAll('#modes .tg-chip').forEach(chip => chip.addEventListener('click', () => {
+    document.querySelectorAll('#modes .tg-chip').forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+    Tideglass.haptic('selection', chip);
+  }));
+
+  document.querySelectorAll('.h-scenes .tg-tile').forEach(t => t.addEventListener('click', () => Tideglass.toast(t.dataset.toast)));
+
+  $('lock').addEventListener('click', () => {
+    if (back === 'locked') { Tideglass.toast('All doors are already locked'); return; }
+    back = 'locked';
+    $('back').textContent = 'Locked';
+    $('back-time').textContent = 'Now';
+    Tideglass.haptic('impact', $('lock'));
+    Tideglass.toast('All doors locked');
+    summarize();
+  });
+</script>
+</body>
+</html>

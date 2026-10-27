@@ -28,11 +28,16 @@ svg{display:block}
 .s-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
 
 .s-panel{display:grid;gap:12px;padding:16px;border-radius:34px}
-.s-panel-top{display:flex;align-items:baseline;justify-content:space-between;padding:4px 8px 2px}
-.s-clock{font:600 2.75rem/1 var(--tg-font);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .s-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.s-circles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.s-circles .tg-tile{justify-content:center;padding:12px;border-radius:999px}
+/* Hero sample: a music player. */
+.s-np{display:flex;align-items:center;gap:14px;padding:4px 4px 0}
+.s-art{flex:none;width:64px;height:64px;border-radius:16px;box-shadow:0 6px 14px -8px var(--tg-shade);
+  background:radial-gradient(circle at 72% 28%,var(--tg-rim-c) 0 14%,transparent 15%),linear-gradient(160deg,var(--tg-rim-b),var(--tg-tint) 55%,var(--tg-deep))}
+.s-np-text{flex:1;min-width:0;display:grid;gap:2px}
+.s-np-text b{font:var(--tg-type-body-strong)}
+.s-np-text span{font:var(--tg-type-label);color:var(--tg-text-2)}
+.s-times{display:flex;justify-content:space-between;padding:6px 4px 0;font:var(--tg-type-micro);color:var(--tg-text-2);font-variant-numeric:tabular-nums}
+.s-transport{display:flex;align-items:center;justify-content:center;gap:28px;padding:2px 0 4px}
 
 .s-section{padding:64px 0}
 .s-section + .s-section{padding-top:24px}
@@ -126,9 +131,9 @@ svg{display:block}
 .p-section-h a{display:inline-flex;align-items:center;gap:6px;font:var(--tg-type-label-strong);color:var(--tg-accent);text-decoration:none;min-height:2.75rem}
 .p-section-h a .tg-icon{width:16px;height:16px}
 
-/* Home */
-.p-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.p-quick .tg-tile{min-height:6rem;padding-inline:4px}
+/* Shared by the app screens */
+.p-slider{display:flex;align-items:center;gap:12px}
+.p-slider .tg-icon{color:var(--tg-text-2)}
 .d-disc{--d-mix:68%}
 [data-tg-theme="dark"] .d-disc{--d-mix:22%}
 @media (prefers-color-scheme:dark){:root:not([data-tg-theme="light"]) .d-disc{--d-mix:22%}}
@@ -136,44 +141,88 @@ svg{display:block}
 .d-disc.is-b{background:color-mix(in srgb,var(--tg-rim-b) var(--d-mix),var(--tg-base))}
 .d-disc.is-c{background:color-mix(in srgb,var(--tg-rim-c) var(--d-mix),var(--tg-base))}
 .d-disc.is-t{background:color-mix(in srgb,var(--tg-tint) calc(var(--d-mix) * .6),var(--tg-base))}
-.p-drop{display:flex;align-items:center;gap:6px;color:var(--tg-accent);font-weight:600}
-.p-drop::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
-.p-promo{display:grid;gap:12px}
-.p-promo h3{font:var(--tg-type-body-strong)}
-.p-promo p{font:var(--tg-type-label);color:var(--tg-text-2)}
-.p-watch{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.p-watch .tg-card{display:grid;gap:4px}
-.p-price{font:600 1.5rem/1.2 var(--tg-font);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.p-art{height:84px;border-radius:14px;margin-bottom:8px}
+.d-note{display:flex;align-items:center;gap:6px;color:var(--tg-accent);font-weight:600}
+.d-note::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+/* A faint line pattern under the content, in the brand tint. Each app sets its own. */
+.d-pattern::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--tg-tint);opacity:var(--d-pattern-o,.2);-webkit-mask:var(--d-pattern);mask:var(--d-pattern)}
+/* Media with a tide caption: the caption sits in a liquid band, the picture keeps showing through. */
+.d-media{position:relative;margin:0;overflow:hidden}
+.d-media > svg{display:block;width:100%;height:auto}
+.d-media .tg-tide{position:absolute;left:0;right:0;bottom:0;--_dir:0deg;--_veil:var(--tg-veil);border-top:var(--tg-feather) solid transparent;padding:4px 12px 8px;font:var(--tg-type-label-strong)}
 
-/* Chat */
-.p-chat::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--tg-tint);opacity:.2;
-  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M22 30c6-9 22-9 26 2s-6 18-16 16-15-9-10-18z'/%3E%3Cpath d='M118 22c8 0 14 6 12 13s-12 9-18 4-3-17 6-17z'/%3E%3Cpath d='M70 92c4-4 8-4 12 0s8 4 12 0 8-4 12 0'/%3E%3Cpath d='M140 118c7-5 17-2 18 6s-8 14-16 11-8-12-2-17z'/%3E%3Cpath d='M30 132l6 10 6-10 6 10'/%3E%3Ccircle cx='96' cy='150' r='5'/%3E%3Cpath d='M150 66a8 8 0 1 1-12 9'/%3E%3C/svg%3E") 0 0/180px 180px repeat;
-          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M22 30c6-9 22-9 26 2s-6 18-16 16-15-9-10-18z'/%3E%3Cpath d='M118 22c8 0 14 6 12 13s-12 9-18 4-3-17 6-17z'/%3E%3Cpath d='M70 92c4-4 8-4 12 0s8 4 12 0 8-4 12 0'/%3E%3Cpath d='M140 118c7-5 17-2 18 6s-8 14-16 11-8-12-2-17z'/%3E%3Cpath d='M30 132l6 10 6-10 6 10'/%3E%3Ccircle cx='96' cy='150' r='5'/%3E%3Cpath d='M150 66a8 8 0 1 1-12 9'/%3E%3C/svg%3E") 0 0/180px 180px repeat}
+/* Running tracker: numbers first, a week chart, a route map, contour lines. */
+.r-app{--d-pattern-o:.13;--d-pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' fill='none' stroke='%23000' stroke-width='1.3'%3E%3Cpath d='M48 118c-2-38 30-66 76-64s74 28 70 64-38 70-80 68-64-30-66-68z'/%3E%3Cpath d='M72 120c-1-24 20-42 50-41s48 18 46 42-25 45-52 44-43-21-44-45z'/%3E%3Cpath d='M96 121c0-12 11-21 26-20s23 9 22 21-12 22-26 21-22-10-22-22z'/%3E%3Cpath d='M-10 26c40-14 74 8 116-6s90-26 144-6'/%3E%3Cpath d='M-10 222c46 12 86-14 132-4s82 18 128 2'/%3E%3C/svg%3E") 0 0/240px 240px repeat}
+.r-hello{display:grid;gap:4px;padding:2px 4px 0}
+.r-hello small{font:var(--tg-type-label-strong);color:var(--tg-text-2)}
+.r-week{display:grid;gap:16px}
+.r-week-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.r-label{font:var(--tg-type-label-strong);color:var(--tg-text-2)}
+.r-big{display:block;margin-top:4px;font:600 2.75rem/1 var(--tg-font);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.r-big small{margin-left:4px;font:var(--tg-type-body-strong);letter-spacing:0}
+.r-week .tg-seg-item{padding:0 12px}
+.r-bars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;height:116px}
+.r-bars div{display:grid;justify-items:center;align-content:end;gap:6px}
+.r-bars i{width:100%;max-width:28px;height:calc(var(--h) * 88px);min-height:6px;border-radius:8px;background:color-mix(in srgb,var(--tg-tint) 42%,var(--tg-base))}
+.r-bars .is-today i{background:var(--tg-accent)}
+.r-bars span{font:var(--tg-type-micro);color:var(--tg-text-2)}
+.r-bars .is-today span{color:var(--tg-text)}
+.r-goal{display:flex;justify-content:space-between;font:var(--tg-type-label);color:var(--tg-text-2)}
+.r-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.r-stats .tg-card{display:grid;gap:2px;padding:14px 12px}
+.r-stats .tg-icon{width:20px;height:20px;margin-bottom:8px;color:var(--tg-accent)}
+.r-stats .r-stat{color:var(--tg-text);font:600 1.375rem/1.15 var(--tg-font);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.r-stats .r-stat small{margin-left:2px;font:var(--tg-type-label-strong);letter-spacing:0}
+.r-stats span{font:var(--tg-type-label);color:var(--tg-text-2)}
+.r-map{border-radius:var(--tg-r-l);box-shadow:0 10px 24px -18px var(--tg-shade)}
+.r-map .m-land{fill:color-mix(in srgb,var(--tg-tint) 12%,var(--tg-base))}
+.r-map .m-park{fill:color-mix(in srgb,var(--tg-tint) 30%,var(--tg-base))}
+.r-map .m-water{fill:color-mix(in srgb,var(--tg-rim-a) 60%,var(--tg-base))}
+.r-map .m-road{stroke:color-mix(in srgb,var(--tg-text) 10%,var(--tg-base))}
+.r-map .m-case{stroke:var(--tg-base)}
+.r-map .m-route{stroke:var(--tg-accent)}
+.r-map .m-dot{fill:var(--tg-accent);stroke:var(--tg-base)}
+.r-map .tg-tide{display:flex;justify-content:space-between;gap:12px}
+.r-next{display:grid;gap:12px}
+.r-next h3{font:var(--tg-type-body-strong)}
+.r-next p{font:var(--tg-type-label);color:var(--tg-text-2)}
+
+/* Group chat: small faces, sender names, a fish pattern. */
+.m-app{--d-pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 34c8-8 20-8 26 0-6 8-18 8-26 0zM44 34l8-6v12z'/%3E%3Cpath d='M120 28c6-6 15-6 20 0-5 6-14 6-20 0zM140 28l6-4.5v9z'/%3E%3Cpath d='M96 104c8-8 20-8 26 0-6 8-18 8-26 0zM122 104l8-6v12z'/%3E%3Cpath d='M24 124c5-5 13-5 17 0-4 5-12 5-17 0zM41 124l5-4v8z'/%3E%3Cpath d='M58 70c4-4 8-4 12 0s8 4 12 0 8-4 12 0'/%3E%3Cpath d='M126 160c4-4 8-4 12 0s8 4 12 0'/%3E%3Ccircle cx='160' cy='70' r='3'/%3E%3Ccircle cx='153' cy='80' r='2'/%3E%3Ccircle cx='60' cy='160' r='3'/%3E%3C/svg%3E") 0 0/180px 180px repeat}
+.m-faces{display:flex;flex:none}
+.m-faces .tg-avatar{width:2rem;height:2rem;font:var(--tg-type-micro);box-shadow:0 0 0 2px var(--tg-ground)}
+.m-faces .tg-avatar + .tg-avatar{margin-left:-12px}
+.m-group{display:flex;align-items:flex-end;gap:8px}
+.m-group > .tg-avatar{width:2rem;height:2rem;font:var(--tg-type-micro)}
+.m-stack{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.m-stack .tg-bubble{max-width:min(86%,30rem)}
+.m-from{display:block;margin-bottom:1px;font:var(--tg-type-label-strong);color:var(--tg-accent)}
+.m-photo{padding:0;width:min(86%,15.5rem);border-radius:20px}
+.m-photo .tg-bubble-meta{margin-top:2px;color:var(--tg-text)}
 .p-who{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.2}
 .p-who b{font:var(--tg-type-body-strong)}
 .p-who span{font:var(--tg-type-label)}
 .p-log{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:12px 12px 16px}
 .p-day{position:sticky;top:112px;z-index:5;display:flex;justify-content:center;margin:6px 0}
 .p-gap{height:8px}
-.p-photo{position:relative;padding:0;margin-block:0;margin-inline-end:0;overflow:hidden;width:min(72%,15rem);border-radius:20px}
-.p-photo-art{display:block;width:100%;height:auto}
-.p-photo .tg-tide{position:absolute;left:0;right:0;bottom:0;--_dir:0deg;--_veil:var(--tg-veil);border-top:var(--tg-feather) solid transparent;padding:4px 12px 8px;font:var(--tg-type-label-strong)}
-.p-photo .tg-bubble-meta{margin-top:2px;color:var(--tg-text)}
 .p-reacts{display:flex;gap:4px;margin-top:6px}
 .p-reacts .tg-pill{min-height:1.5rem;padding:0 .5rem;font-size:.75rem}
 .p-react{display:flex;flex-direction:row;gap:2px;padding:4px;border-radius:999px;min-width:0}
 .p-typing{padding:10px 14px}
 
-/* Controls */
-.p-cc-time{display:flex;align-items:flex-end;justify-content:space-between;padding:8px 6px 4px}
-.p-cc-time .s-clock{font-size:3.5rem}
-.p-cc-time small{font:var(--tg-type-label-strong);color:var(--tg-text-2);text-align:right}
-.p-slider{display:flex;align-items:center;gap:12px}
-.p-slider .tg-icon{color:var(--tg-text-2)}
-.p-tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.p-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.p-pair .tg-tile{justify-content:center;padding:12px}
-.p-dots{display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 0}
-.p-dots i{width:6px;height:6px;border-radius:999px;background:color-mix(in srgb,var(--tg-text) 30%,transparent)}
-.p-dots i:first-child{width:18px;background:var(--tg-text)}
+/* Smart home: rooms, a big thermostat, device tiles, scenes. No pattern; warm and plain. */
+.h-summary{padding:0 4px;font:var(--tg-type-label-strong);color:var(--tg-text-2)}
+.h-rooms{display:flex}
+.h-rooms .tg-seg-item{padding:0 8px}
+.h-climate{display:grid;gap:14px}
+.h-climate-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.h-temp{display:block;margin:4px 0 6px;font:600 3.75rem/1 var(--tg-font);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.h-climate p{font:var(--tg-type-label);color:var(--tg-text-2)}
+.h-step{display:grid;gap:10px}
+.h-light{display:grid;gap:8px}
+.h-light-h{display:flex;justify-content:space-between;font:var(--tg-type-body-strong)}
+.h-light-h span{font:var(--tg-type-label-strong);color:var(--tg-text-2);font-variant-numeric:tabular-nums}
+.h-tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.h-scenes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.h-scenes .tg-tile{min-height:6rem;padding-inline:4px}
+.h-doors{display:grid;gap:12px}
+.h-doors .tg-btn{justify-self:start}

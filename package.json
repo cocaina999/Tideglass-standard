@@ -1,7 +1,7 @@
 {
   "name": "tideglass",
   "version": "1.0.0",
-  "description": "Tideglass: a premium UI material and touch standard. Read on sea glass, touch jelly, see through the tide.",
+  "description": "A design standard for app interfaces: frosted glass for text, jelly controls that dent when pressed, and a see-through tide at scroll edges. Spec, web kit, tokens and a Claude skill.",
   "keywords": [
     "design-system",
     "ui",
@@ -15,7 +15,7 @@
     "claude-skill"
   ],
   "license": "MIT",
-  "author": "Tideglass contributors",
+  "author": "Diptamoy Barman (https://x.com/DiptamoyBarman)",
   "homepage": "https://cocaina999.github.io/Tideglass-standard/",
   "repository": {
     "type": "git",

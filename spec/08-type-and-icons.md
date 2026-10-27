@@ -2,7 +2,7 @@
 
 ## Type
 
-**One family, five sizes, two weights.** Restraint is what makes soft materials look premium instead of playful.
+**One family, five sizes, two weights.** The materials already have a lot of character, so the type stays plain. Otherwise soft glass and jelly start to look like a toy.
 
 | Style | Token and class | Size / line | Weight | Tracking | Use |
 |---|---|---|---|---|---|

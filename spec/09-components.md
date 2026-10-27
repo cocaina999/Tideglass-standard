@@ -77,12 +77,12 @@ Generic material and modifier classes work on anything: `.tg-glass`, `.tg-jelly`
 ```html
 <button class="tg-tile" aria-pressed="true">
   <span class="tg-tile-icon"><svg class="tg-icon">…</svg></span>
-  <span class="tg-tile-text">Wi-Fi<small>Harbor-5G</small></span>
+  <span class="tg-tile-text">Ceiling lights<small>On · 70%</small></span>
 </button>
 
 <button class="tg-tile tg-stack">
   <span class="tg-tile-icon"><svg class="tg-icon">…</svg></span>
-  Track price
+  Movie night
 </button>
 ```
 
@@ -115,7 +115,7 @@ Typing surfaces never dent. On focus the rim goes to full strength and a 1.5px a
 ## Switch and slider
 
 ```html
-<input class="tg-switch" type="checkbox" role="switch" checked aria-label="Price alerts">
+<input class="tg-switch" type="checkbox" role="switch" checked aria-label="Run reminders">
 <input class="tg-slider" type="range" min="0" max="100" value="60" aria-label="Brightness">
 ```
 
@@ -126,11 +126,11 @@ Typing surfaces never dent. On focus the rim goes to full strength and a 1.5px a
 
 ```html
 <div class="tg-list tg-grain" style="--tg-row-inset:68px">
-  <a class="tg-row" href="/chat/1">
+  <a class="tg-row" href="/runs/1">
     <span class="tg-thumb tg-shallow"><svg class="tg-icon">…</svg></span>
     <span class="tg-row-main">
-      <span class="tg-row-title"><span>Lamp from a photo</span><span class="tg-row-meta">7:45 PM</span></span>
-      <span class="tg-row-sub">Found it. Ceramic mushroom table lamp, $64.</span>
+      <span class="tg-row-title"><span>Riverside loop</span><span class="tg-row-meta">7:10 AM</span></span>
+      <span class="tg-row-sub">6.2 km · 31:04 · 5:01 /km</span>
     </span>
   </a>
 </div>
@@ -144,8 +144,8 @@ Typing surfaces never dent. On focus the rim goes to full strength and a 1.5px a
 ## Message bubbles
 
 ```html
-<div class="tg-bubble is-in">Hi! Send me a photo.<span class="tg-bubble-meta">7:41 PM</span></div>
-<div class="tg-bubble is-out" data-press="l" data-hold>Find this lamp<span class="tg-bubble-meta">7:42 PM</span></div>
+<div class="tg-bubble is-in">Still on for Saturday?<span class="tg-bubble-meta">9:12 AM</span></div>
+<div class="tg-bubble is-out" data-press="l" data-hold>Yes, I'll drive<span class="tg-bubble-meta">9:20 AM</span></div>
 ```
 
 - `is-in` is Foam, `is-out` is Shallow; the tail corner flattens to 6px and new bubbles arrive from it (`.tg-arrive`).

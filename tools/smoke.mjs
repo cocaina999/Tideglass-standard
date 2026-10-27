@@ -25,7 +25,7 @@ async function scrollInto(page, sel) {
 }
 
 console.log('\nPages load cleanly');
-for (const file of ['demo/index.html', 'demo/home.html', 'demo/chat.html', 'demo/controls.html']) {
+for (const file of ['demo/index.html', 'demo/fitness.html', 'demo/messages.html', 'demo/smart-home.html']) {
   for (const theme of ['light', 'dark']) {
     const { page, errors } = await open(browser, file, { query: `theme=${theme}&haptics=0` });
     await wait(300);
@@ -213,12 +213,12 @@ console.log('\nSettings people turn on');
   expect((await state(page, btn)).state === null, 'and skips the peel');
   await page.close();
 
-  const t = await open(browser, 'demo/home.html', { query: 'theme=light&transparency=reduce&haptics=0' });
+  const t = await open(browser, 'demo/fitness.html', { query: 'theme=light&transparency=reduce&haptics=0' });
   const bf = await t.page.$eval('.tg-tabbar', el => getComputedStyle(el).backdropFilter);
   expect(bf === 'none', 'reduce transparency removes the blur from floating glass', bf);
   await t.page.close();
 
-  const c = await open(browser, 'demo/home.html', { query: 'theme=light&contrast=more&haptics=0' });
+  const c = await open(browser, 'demo/fitness.html', { query: 'theme=light&contrast=more&haptics=0' });
   const same = await c.page.evaluate(() => { const s = getComputedStyle(document.documentElement); return s.getPropertyValue('--tg-text-2').trim() === s.getPropertyValue('--tg-text').trim(); });
   expect(same, 'increase contrast makes secondary text primary');
   await c.page.close();
@@ -226,7 +226,7 @@ console.log('\nSettings people turn on');
 
 console.log('\nThemes and scoping');
 {
-  const { page } = await open(browser, 'demo/home.html', { query: 'theme=light&haptics=0' });
+  const { page } = await open(browser, 'demo/fitness.html', { query: 'theme=light&haptics=0' });
   const scoped = await page.evaluate(() => {
     const box = document.createElement('section');
     box.setAttribute('data-tg-brand', 'coral');
@@ -243,20 +243,20 @@ console.log('\nThemes and scoping');
 
 console.log('\nDemos');
 {
-  const { page } = await open(browser, 'demo/chat.html', { query: 'theme=light&haptics=0' });
+  const { page } = await open(browser, 'demo/messages.html', { query: 'theme=light&haptics=0' });
   const count = () => page.$$eval('.tg-bubble', b => b.length);
   const n = await count();
-  await page.type('#msg', 'Is it in stock?');
+  await page.type('#msg', 'Who has the trail map?');
   expect(await page.$eval('#send', b => b.getAttribute('aria-label')) === 'Send', 'typing swaps the mic for send');
   await page.click('#send');
   expect(await until(page, k => document.querySelectorAll('.tg-bubble').length === k, n + 1, 1000), 'sending adds a bubble');
   expect(await until(page, k => document.querySelectorAll('.tg-bubble').length === k, n + 2, 5000), 'and a reply arrives');
   await page.close();
 
-  const cc = await open(browser, 'demo/controls.html', { query: 'theme=light&haptics=0' });
+  const cc = await open(browser, 'demo/smart-home.html', { query: 'theme=light&haptics=0' });
   const tile = '#tiles .tg-tile:nth-of-type(2)';
   await cc.page.click(tile);
-  expect(await until(cc.page, sel => document.querySelector(sel).getAttribute('aria-pressed') === 'true', tile, 1000), 'a control tile toggles to Deep');
+  expect(await until(cc.page, sel => document.querySelector(sel).getAttribute('aria-pressed') === 'true', tile, 1000), 'a device tile toggles to Deep');
   await cc.page.close();
 }
 

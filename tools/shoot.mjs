@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Renders the README images into docs/assets with a local headless browser.
 //   npm run shots
-//   node tools/shoot.mjs demo/chat.html out.png 390x844 "theme=dark" [scrollY]
+//   node tools/shoot.mjs demo/messages.html out.png 390x844 "theme=dark" [scrollY]
 
 import { launch, open, wait } from './browser.mjs';
 import { resolve } from 'node:path';
@@ -11,12 +11,12 @@ import { ROOT } from './lib.mjs';
 const SHOTS = [
   // file, out, size, query, scrollY ('end' = bottom)
   ['docs/poster.html', 'docs/assets/poster.jpg', '1280x640', ''],
-  ['demo/home.html', 'docs/assets/home-light.webp', '390x844', 'haptics=0&theme=light', 230],
-  ['demo/home.html', 'docs/assets/home-dark.webp', '390x844', 'haptics=0&theme=dark&brand=cornflower', 230],
-  ['demo/chat.html', 'docs/assets/chat-light.webp', '390x844', 'haptics=0&theme=light', 'end'],
-  ['demo/chat.html', 'docs/assets/chat-dark.webp', '390x844', 'haptics=0&theme=dark&brand=lavender', 'end'],
-  ['demo/controls.html', 'docs/assets/controls-light.webp', '390x844', 'haptics=0&theme=light', 0],
-  ['demo/controls.html', 'docs/assets/controls-dark.webp', '390x844', 'haptics=0&theme=dark&brand=amber', 0],
+  ['demo/fitness.html', 'docs/assets/fitness-light.webp', '390x844', 'haptics=0&theme=light', 110],
+  ['demo/fitness.html', 'docs/assets/fitness-dark.webp', '390x844', 'haptics=0&theme=dark', 110],
+  ['demo/messages.html', 'docs/assets/messages-light.webp', '390x844', 'haptics=0&theme=light', 'end'],
+  ['demo/messages.html', 'docs/assets/messages-dark.webp', '390x844', 'haptics=0&theme=dark', 'end'],
+  ['demo/smart-home.html', 'docs/assets/smart-home-light.webp', '390x844', 'haptics=0&theme=light', 0],
+  ['demo/smart-home.html', 'docs/assets/smart-home-dark.webp', '390x844', 'haptics=0&theme=dark', 0],
 ];
 
 async function shoot(browser, file, out, size = '390x844', query = '', scrollY = 0) {

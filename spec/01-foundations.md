@@ -38,7 +38,7 @@ A Tideglass screen is recognizable from these seven traits. A screen that drops 
 
 ## Not Liquid Glass
 
-Tideglass is a deliberate alternative to Apple's Liquid Glass, not a copy.
+Tideglass is an alternative to Apple's Liquid Glass. This is where the two differ.
 
 | | Liquid Glass | Tideglass |
 |---|---|---|
@@ -54,7 +54,7 @@ Tideglass is a deliberate alternative to Apple's Liquid Glass, not a copy.
 ## Principles
 
 1. **Job before taste.** Material, thickness and layer come from what an element does. Two people building the same screen should land on the same choices.
-2. **Still at rest.** Nothing moves unless someone touches it, except live status and an optional hero. Calm is the premium part.
+2. **Still at rest.** Nothing moves unless someone touches it, except live status and an optional hero. Motion is saved for feedback, so it means something when it happens.
 3. **Soft, then precise.** Surfaces are soft and squishy; the rules behind them are exact. Every number in this standard is measured, generated or tested.
 4. **Small is squishy, costly is firm, readable is still.** The smaller a control, the more it gives. The more an action costs, the firmer it is. The more you read on a surface, the stiller it stays.
 5. **Legible over pretty.** When glass and text disagree, the glass gets thicker. A text shadow is never the fix.
