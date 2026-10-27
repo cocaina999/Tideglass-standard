@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Controls · Tideglass demo</title>
+<link rel="stylesheet" href="../kit/tideglass.css">
+<link rel="stylesheet" href="../kit/tideglass-presets.css">
+<link rel="stylesheet" href="assets/demo.css">
+<script src="assets/demo.js"></script>
+</head>
+<body class="tg-ground tg-grain p-body">
+<div class="p-screen">
+  <div class="p-status" aria-hidden="true">
+    <span>Harbor 5G</span>
+    <span><svg class="tg-icon"><use href="#i-signal"/></svg><svg class="tg-icon"><use href="#i-wifi"/></svg><span class="tg-num">82%</span><svg class="tg-icon"><use href="#i-battery"/></svg></span>
+  </div>
+
+  <main class="p-main">
+    <div class="p-cc-time">
+      <span class="s-clock">10:10</span>
+      <small>Sat, Oct 10<br>Until 7:00 PM</small>
+    </div>
+
+    <label class="p-slider">
+      <span class="tg-sr-only">Brightness</span>
+      <input class="tg-slider" type="range" min="0" max="100" value="58">
+      <svg class="tg-icon" aria-hidden="true"><use href="#i-sun"/></svg>
+    </label>
+
+    <div class="p-tiles" id="tiles">
+      <button class="tg-tile" aria-pressed="true" data-on="Harbor-5G" data-haptic="selection">
+        <span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-wifi"/></svg></span>
+        <span class="tg-tile-text">Wi-Fi<small>Harbor-5G</small></span>
+      </button>
+      <button class="tg-tile" aria-pressed="false" data-on="On" data-haptic="selection">
+        <span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-data"/></svg></span>
+        <span class="tg-tile-text">Mobile data<small>Off</small></span>
+      </button>
+      <button class="tg-tile" aria-pressed="false" data-on="Connected" data-haptic="selection">
+        <span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-bluetooth"/></svg></span>
+        <span class="tg-tile-text">Bluetooth<small>Off</small></span>
+      </button>
+      <div class="p-pair">
+        <button class="tg-tile" aria-pressed="false" aria-label="Flashlight" data-haptic="selection"><svg class="tg-icon"><use href="#i-torch"/></svg></button>
+        <button class="tg-tile" aria-pressed="true" aria-label="Location" data-haptic="selection"><svg class="tg-icon"><use href="#i-pin"/></svg></button>
+      </div>
+      <button class="tg-tile" aria-pressed="false" data-on="Until 7:00 PM" data-haptic="selection">
+        <span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-moon"/></svg></span>
+        <span class="tg-tile-text">Focus<small>Off</small></span>
+      </button>
+      <button class="tg-tile" aria-pressed="false" data-on="Recording" data-off="Start" data-haptic="selection">
+        <span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-record"/></svg></span>
+        <span class="tg-tile-text">Recorder<small>Start</small></span>
+      </button>
+      <div class="p-pair">
+        <button class="tg-tile" aria-pressed="false" aria-label="Airplane mode" data-haptic="selection"><svg class="tg-icon"><use href="#i-plane"/></svg></button>
+        <button class="tg-tile" aria-pressed="false" aria-label="Scan a code" data-haptic="selection"><svg class="tg-icon"><use href="#i-qr"/></svg></button>
+      </div>
+      <button class="tg-tile" aria-pressed="false" data-on="Everyone nearby" data-haptic="selection">
+        <span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-share"/></svg></span>
+        <span class="tg-tile-text">Quick share<small>Off</small></span>
+      </button>
+    </div>
+
+    <div class="p-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="s-row" style="justify-content:space-between">
+      <button class="tg-btn" data-press="firm"><svg class="tg-icon"><use href="#i-lock"/></svg>Lock</button>
+      <button class="tg-icon-btn" aria-label="Edit tiles"><svg class="tg-icon"><use href="#i-grid"/></svg></button>
+    </div>
+  </main>
+</div>
+
+<script src="assets/icons.js"></script>
+<script src="../kit/tideglass.js"></script>
+<script>
+  // Tiles are toggles: Deep when on, jelly Foam when off. Subtitles follow the state.
+  document.getElementById('tiles').addEventListener('click', e => {
+    const tile = e.target.closest('.tg-tile');
+    if (!tile) return;
+    const on = tile.getAttribute('aria-pressed') !== 'true';
+    tile.setAttribute('aria-pressed', String(on));
+    const small = tile.querySelector('small');
+    if (small) small.textContent = on ? tile.dataset.on : (tile.dataset.off || 'Off');
+  });
+</script>
+</body>
+</html>

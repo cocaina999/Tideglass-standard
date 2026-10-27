@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en" data-demo-remember>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tideglass · UI material standard</title>
+<meta name="description" content="Tideglass: read on sea glass, touch jelly, see through the tide. A premium UI material and touch standard for any brand.">
+<link rel="stylesheet" href="../kit/tideglass.css">
+<link rel="stylesheet" href="../kit/tideglass-presets.css">
+<link rel="stylesheet" href="assets/demo.css">
+<script src="assets/demo.js"></script>
+</head>
+<body class="tg-ground tg-grain">
+
+<header class="tg-tide tg-tide-top s-header" data-tide="auto">
+  <div class="s-wrap tg-appbar">
+    <a class="s-brand" href="#top"><span class="s-mark tg-jelly tg-lagoon" aria-hidden="true"></span>Tideglass</a>
+    <nav class="s-nav" aria-label="Sections">
+      <a href="#materials">Materials</a>
+      <a href="#touch">Touch</a>
+      <a href="#navigation">Navigation</a>
+      <a href="#components">Components</a>
+      <a href="#apps">Apps</a>
+    </nav>
+    <a class="tg-btn" href="../spec/README.md">Standard</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="s-wrap s-hero">
+    <div>
+      <span class="tg-pill">UI material standard · v1.0</span>
+      <h1 class="s-display">Tideglass</h1>
+      <p class="s-tagline"><span>Read on sea glass.</span> <span>Touch jelly.</span> <span>See through the tide.</span></p>
+      <p class="s-lead">A premium interface material for any brand. Frosted, softly tinted sea glass holds everything you read. Squishy jelly dents under your finger and peels back when you let go. A liquid tide at the edges keeps content faintly visible under the navigation.</p>
+      <div class="s-actions">
+        <a class="tg-btn tg-deep" href="#apps">See it in apps</a>
+        <a class="tg-btn" href="../spec/README.md">Read the standard</a>
+      </div>
+    </div>
+
+    <div class="s-panel tg-glass tg-thick tg-grain" aria-label="Live sample">
+      <div class="s-panel-top"><span class="s-clock">10:10</span><span class="tg-type-label-strong tg-text-2">Sat, Oct 10</span></div>
+      <label class="p-slider"><span class="tg-sr-only">Brightness</span><input class="tg-slider" type="range" value="62"><svg class="tg-icon" aria-hidden="true"><use href="#i-sun"/></svg></label>
+      <div class="s-two">
+        <button class="tg-tile" aria-pressed="true" data-haptic="selection"><span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-wifi"/></svg></span><span class="tg-tile-text">Wi-Fi<small>Harbor-5G</small></span></button>
+        <button class="tg-tile" aria-pressed="false" data-haptic="selection"><span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-bluetooth"/></svg></span><span class="tg-tile-text">Bluetooth<small>Off</small></span></button>
+        <button class="tg-tile" aria-pressed="false" data-haptic="selection"><span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-moon"/></svg></span><span class="tg-tile-text">Focus<small>Off</small></span></button>
+        <div class="s-circles">
+          <button class="tg-tile" aria-pressed="false" aria-label="Flashlight" data-haptic="selection"><svg class="tg-icon"><use href="#i-torch"/></svg></button>
+          <button class="tg-tile" aria-pressed="true" aria-label="Location" data-haptic="selection"><svg class="tg-icon"><use href="#i-pin"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Materials -->
+  <section class="s-wrap s-section" id="materials">
+    <div class="s-head">
+      <span class="s-eyebrow">Three materials</span>
+      <h2 class="s-h2">Choose the material by what the person does with it.</h2>
+      <p class="s-p">Reading, touching and seeing through are different jobs, so each one gets its own material. Every screen is made of these three over a pale, pooled ground.</p>
+    </div>
+    <div class="s-grid s-grid-3">
+      <article class="tg-card tg-grain">
+        <div class="s-card-h"><h3 class="s-card-title">Sea glass</h3><span class="tg-pill tg-shallow">Read</span></div>
+        <p class="s-card-p">Frosted, matte and softly tinted. Opaque wherever there is text. Never blurs a list.</p>
+        <div class="tg-list" style="--tg-row-inset:64px">
+          <div class="tg-row"><span class="tg-thumb tg-shallow"><svg class="tg-icon"><use href="#i-drop"/></svg></span><span class="tg-row-main"><span class="tg-row-title"><span>Frosted body</span></span><span class="tg-row-sub">Its own tint, not the content's.</span></span></div>
+          <div class="tg-row"><span class="tg-thumb"><svg class="tg-icon"><use href="#i-sparkle"/></svg></span><span class="tg-row-main"><span class="tg-row-title"><span>Still pastel rim</span></span><span class="tg-row-sub">1px, never moves.</span></span></div>
+        </div>
+      </article>
+      <article class="tg-card tg-grain">
+        <div class="s-card-h"><h3 class="s-card-title">Jelly</h3><span class="tg-pill tg-shallow">Touch</span></div>
+        <p class="s-card-p">Gummy and lit from inside: a sheen on top, light pooling at the bottom. It dents and peels.</p>
+        <div class="s-stack">
+          <button class="tg-tile" style="border-radius:var(--tg-r-l)"><span class="tg-tile-icon"><svg class="tg-icon"><use href="#i-hand"/></svg></span><span class="tg-tile-text">Press me<small>Hold, drag, let go</small></span></button>
+          <div class="s-row"><button class="tg-chip">Chip</button><button class="tg-icon-btn" aria-label="Like"><svg class="tg-icon"><use href="#i-heart"/></svg></button><button class="tg-orb is-small" aria-label="Send" data-haptic="impact"><svg class="tg-icon"><use href="#i-send"/></svg></button></div>
+        </div>
+      </article>
+      <article class="tg-card tg-grain">
+        <div class="s-card-h"><h3 class="s-card-title">Tide</h3><span class="tg-pill tg-shallow">See through</span></div>
+        <p class="s-card-p">Liquid and clear at the edges. Content stays faintly visible under the bars. Scroll this one.</p>
+        <div class="s-mini" tabindex="0" aria-label="Scrollable tide sample">
+          <div class="tg-tide tg-tide-top" data-tide="auto"><div class="tg-appbar"><span class="tg-appbar-title">Inbox</span><button class="tg-icon-btn" aria-label="Search"><svg class="tg-icon"><use href="#i-search"/></svg></button></div></div>
+          <div class="s-mini-body">
+            <div class="s-line tg-glass"><i class="tg-shallow tg-jelly"></i>Tide catches the light</div>
+            <div class="s-line tg-glass"><i class="tg-lagoon tg-jelly"></i>Sea glass at low water</div>
+            <div class="s-line tg-glass"><i class="tg-deep"></i>A pebble in deep blue</div>
+            <div class="s-line tg-glass"><i class="tg-shallow tg-jelly"></i>Foam along the shore</div>
+            <div class="s-line tg-glass"><i class="tg-lagoon tg-jelly"></i>Light pooling below</div>
+            <div class="s-line tg-glass"><i class="tg-deep"></i>The last wave out</div>
+            <div class="s-line tg-glass"><i class="tg-shallow tg-jelly"></i>Pastel rim at dusk</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Layers -->
+  <section class="s-wrap s-section">
+    <div class="s-head">
+      <span class="s-eyebrow">Four depths</span>
+      <h2 class="s-h2">One tint, four depths.</h2>
+      <p class="s-p">Every surface takes its color from the brand tint mixed with white. Deeper means more important. Deep is kept for the one main action on a screen.</p>
+    </div>
+    <div class="s-grid s-grid-4">
+      <button class="tg-tile tg-stack tg-foam"><b>Foam</b><span class="tg-type-label">Bars, menus, sheets, cards</span><span class="s-spec">tint 4% → 12%</span></button>
+      <button class="tg-tile tg-stack tg-shallow"><b>Shallow</b><span class="tg-type-label">Your bubbles, chips, avatars</span><span class="s-spec" style="color:inherit">tint 22% → 45%</span></button>
+      <button class="tg-tile tg-stack tg-lagoon"><b>Lagoon</b><span class="tg-type-label">Selected states, the blob</span><span class="s-spec" style="color:inherit">tint 30% → 62%</span></button>
+      <button class="tg-tile tg-stack tg-deep"><b>Deep</b><span class="tg-type-label">The one main action</span><span class="s-spec" style="color:inherit">deep, lit from below</span></button>
+    </div>
+  </section>
+
+  <!-- Thickness -->
+  <section class="s-wrap s-section">
+    <div class="s-head">
+      <span class="s-eyebrow">Thickness</span>
+      <h2 class="s-h2">Float is glass. Read is solid.</h2>
+      <p class="s-p">Thickness is opacity and blur together, chosen by the job, never by taste. Text on floating glass must pass 4.5:1 against the darkest thing that can scroll behind it. If it fails, go one step thicker.</p>
+    </div>
+    <div class="s-backdrop">
+      <div class="s-backdrop-word" aria-hidden="true">tideglass</div>
+      <div class="s-thick-grid">
+        <div class="s-thick tg-glass tg-thin"><b>Thin</b><span>56% · 12px blur</span><div class="s-row"><svg class="tg-icon"><use href="#i-heart"/></svg><svg class="tg-icon"><use href="#i-share"/></svg></div></div>
+        <div class="s-thick tg-glass tg-regular"><b>Regular</b><span>68% · 20px blur. Bars, tab bar, composer.</span></div>
+        <div class="s-thick tg-glass tg-thick"><b>Thick</b><span>84% · 28px blur. Menus, sheets, popovers.</span></div>
+        <div class="s-thick tg-glass"><b>Solid</b><span>100% · no blur. Anything you read.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Touch -->
+  <section class="s-wrap s-section" id="touch">
+    <div class="s-head">
+      <span class="s-eyebrow">Touch</span>
+      <h2 class="s-h2">Dent on touch. Peel on release.</h2>
+      <p class="s-p">Press into soft jelly and it gives a little. Lift your finger and it clings for a beat, pulls up toward you, then settles. One rebound, never a wobble. Size picks the tier; a role can only make it calmer.</p>
+    </div>
+    <div class="s-grid s-grid-3">
+      <article class="tg-card">
+        <div class="s-card-h"><h3 class="s-card-title">S · up to 56px</h3></div>
+        <p class="s-card-p">Icon buttons, orbs, avatars, switches. The most squish.</p>
+        <div class="s-row"><button class="tg-icon-btn" aria-label="Back"><svg class="tg-icon"><use href="#i-back"/></svg></button><button class="tg-icon-btn" aria-label="Like"><svg class="tg-icon"><use href="#i-heart"/></svg></button><button class="tg-icon-btn tg-shallow" aria-label="Add"><svg class="tg-icon"><use href="#i-plus"/></svg></button><button class="tg-orb" aria-label="Send" data-haptic="impact"><svg class="tg-icon"><use href="#i-send"/></svg></button></div>
+        <p class="s-spec">dent 1.035 × 0.93, sink 1px · peel 0.985 × 1.05, lift −1.5px</p>
+      </article>
+      <article class="tg-card">
+        <div class="s-card-h"><h3 class="s-card-title">M · 57–160px</h3></div>
+        <p class="s-card-p">Chips, pills, tabs, tiles, segments. S and M lean with your finger.</p>
+        <div class="s-row"><button class="tg-chip" aria-pressed="true">Today</button><button class="tg-chip" aria-pressed="false">This week</button><button class="tg-btn tg-shallow">Save</button></div>
+        <p class="s-spec">dent 1.02 × 0.955, sink 0.5px · peel 0.992 × 1.03, lift −1px</p>
+      </article>
+      <article class="tg-card">
+        <div class="s-card-h"><h3 class="s-card-title">L · wider</h3></div>
+        <p class="s-card-p">Rows and cards barely move. Long-press charges, then pops.</p>
+        <div class="tg-list" style="--tg-row-inset:12px">
+          <button class="tg-row" type="button"><span class="tg-row-main"><span class="tg-row-title"><span>Tap this row</span></span></span><svg class="tg-icon tg-text-2"><use href="#i-chevron"/></svg></button>
+          <button class="tg-row" type="button" data-hold id="holdrow"><span class="tg-row-main"><span class="tg-row-title"><span>Long-press this row</span></span></span><svg class="tg-icon tg-text-2"><use href="#i-more"/></svg></button>
+        </div>
+        <p class="s-spec">dent 0.985 even · peel 1.004 · hold 350ms</p>
+      </article>
+      <article class="tg-card">
+        <div class="s-card-h"><h3 class="s-card-title">Firm</h3></div>
+        <p class="s-card-p">Money and loss. No tint, no peel, no wobble.</p>
+        <div class="s-row"><button class="tg-btn tg-deep" data-press="firm">Pay $24.00</button><button class="tg-btn is-danger" data-press="firm">Delete</button></div>
+        <p class="s-spec">dent 0.97 even · eases back in 360ms, no overshoot</p>
+      </article>
+      <article class="tg-card">
+        <div class="s-card-h"><h3 class="s-card-title">Lift</h3></div>
+        <p class="s-card-p">Small keys your finger covers grow and rise so you can see them.</p>
+        <div class="s-row"><button class="tg-key" aria-label="Love">❤️</button><button class="tg-key" aria-label="Thumbs up">👍</button><button class="tg-key" aria-label="Party">🎉</button><button class="tg-key" aria-label="Wow">😮</button><button class="tg-key" aria-label="Wave">👋</button></div>
+        <p class="s-spec">grows to 1.15, rises 4px · glides back</p>
+      </article>
+      <article class="tg-card">
+        <div class="s-card-h"><h3 class="s-card-title">None</h3></div>
+        <p class="s-card-p">Links dim. Typing surfaces and disabled controls stay still.</p>
+        <div class="s-row"><a class="tg-link" href="../spec/04-touch.md">Read the touch spec</a><button class="tg-btn" disabled aria-disabled="true" style="opacity:.4">Disabled</button></div>
+        <p class="s-spec">links dim to 60% · fade back in 150ms</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <section class="s-wrap s-section" id="navigation">
+    <div class="s-head">
+      <span class="s-eyebrow">Navigation</span>
+      <h2 class="s-h2">Jelly you can drag. Tide you can see through.</h2>
+      <p class="s-p">Tabs and segments share one selection blob. It glides to your choice and stretches on the way. Press and slide along a tab bar and the blob follows your finger like a drop of jelly.</p>
+    </div>
+    <div class="s-grid s-grid-2">
+      <article class="tg-card">
+        <div class="s-dockdemo">
+          <div class="s-dockdemo-body">
+            <i class="tg-jelly tg-shallow"></i><i class="tg-jelly tg-lagoon"></i><i class="tg-jelly tg-prism"></i><i class="tg-deep"></i>
+            <i class="tg-jelly tg-lagoon"></i><i class="tg-jelly tg-shallow"></i><i class="tg-jelly tg-prism"></i><i class="tg-jelly tg-lagoon"></i>
+          </div>
+          <div class="tg-tide tg-tide-bottom">
+            <nav class="tg-dock" aria-label="Sample tab bar">
+              <div class="tg-tabbar tg-regular is-fill" role="tablist">
+                <span class="tg-blob" aria-hidden="true"></span>
+                <button class="tg-tab" role="tab" aria-selected="true"><svg class="tg-icon"><use href="#i-home"/></svg>Home</button>
+                <button class="tg-tab" role="tab" aria-selected="false" tabindex="-1"><svg class="tg-icon"><use href="#i-search"/></svg>Search</button>
+                <button class="tg-tab" role="tab" aria-selected="false" tabindex="-1"><svg class="tg-icon"><use href="#i-heart"/></svg>Saved</button>
+                <button class="tg-tab" role="tab" aria-selected="false" tabindex="-1"><svg class="tg-icon"><use href="#i-user"/></svg>You</button>
+              </div>
+            </nav>
+          </div>
+        </div>
+        <p class="s-hint">Tap a tab, or press and slide across the bar. Arrow keys work too.</p>
+      </article>
+      <article class="tg-card s-stack">
+        <div class="tg-seg" role="tablist" aria-label="Range" style="display:flex">
+          <span class="tg-blob" aria-hidden="true"></span>
+          <button class="tg-seg-item" role="tab" aria-selected="true">Day</button>
+          <button class="tg-seg-item" role="tab" aria-selected="false" tabindex="-1">Week</button>
+          <button class="tg-seg-item" role="tab" aria-selected="false" tabindex="-1">Month</button>
+          <button class="tg-seg-item" role="tab" aria-selected="false" tabindex="-1">Year</button>
+        </div>
+        <div class="tg-list">
+          <label class="s-setting"><div><b>Price alerts</b><span>The thumb glides and stretches.</span></div><input class="tg-switch" type="checkbox" role="switch" checked></label>
+          <label class="s-setting"><div><b>Weekly digest</b><span>The track tint fades in 150ms.</span></div><input class="tg-switch" type="checkbox" role="switch"></label>
+        </div>
+        <label class="p-slider"><span class="tg-sr-only">Volume</span><svg class="tg-icon" aria-hidden="true"><use href="#i-wave"/></svg><input class="tg-slider" type="range" value="40"></label>
+      </article>
+    </div>
+  </section>
+
+  <!-- Components -->
+  <section class="s-wrap s-section" id="components">
+    <div class="s-head">
+      <span class="s-eyebrow">Components</span>
+      <h2 class="s-h2">The pieces, ready to use.</h2>
+      <p class="s-p">Every component is a material, a layer, a thickness and a touch tier. One CSS file and one small script. Nothing to build.</p>
+    </div>
+    <div class="s-grid s-grid-2">
+      <article class="tg-card s-stack">
+        <h3 class="s-card-title">Buttons and fields</h3>
+        <div class="s-row"><button class="tg-btn tg-deep" data-haptic="impact">Continue</button><button class="tg-btn">Not now</button><button class="tg-btn tg-shallow"><svg class="tg-icon"><use href="#i-heart"/></svg>Save</button></div>
+        <label class="tg-field"><svg class="tg-icon" aria-hidden="true"><use href="#i-search"/></svg><input type="search" placeholder="Search the shore" aria-label="Search"><button type="button" class="tg-icon-btn is-plain" aria-label="Filters"><svg class="tg-icon"><use href="#i-sliders"/></svg></button></label>
+        <div class="tg-dock" style="padding:0">
+          <div class="tg-composer"><button type="button" class="tg-icon-btn is-plain" aria-label="Attach"><svg class="tg-icon"><use href="#i-plus"/></svg></button><input type="text" placeholder="Message" aria-label="Message"></div>
+          <button class="tg-orb" aria-label="Record" data-haptic="impact"><svg class="tg-icon"><use href="#i-mic"/></svg></button>
+        </div>
+      </article>
+      <article class="tg-card s-stack">
+        <h3 class="s-card-title">Overlays and status</h3>
+        <div class="s-row" style="position:relative">
+          <button class="tg-btn" id="menu-btn" aria-haspopup="menu" aria-expanded="false"><svg class="tg-icon"><use href="#i-more"/></svg>Menu</button>
+          <button class="tg-btn" id="sheet-btn">Sheet</button>
+          <button class="tg-btn" id="toast-btn">Toast</button>
+          <div class="tg-menu tg-thick tg-grain" id="menu" role="menu" hidden style="top:52px;left:0">
+            <button class="tg-menu-item" role="menuitem"><svg class="tg-icon"><use href="#i-share"/></svg>Share</button>
+            <button class="tg-menu-item" role="menuitem"><svg class="tg-icon"><use href="#i-pen"/></svg>Rename</button>
+            <hr>
+            <button class="tg-menu-item is-danger" role="menuitem" data-press="firm"><svg class="tg-icon"><use href="#i-trash"/></svg>Delete</button>
+          </div>
+        </div>
+        <div class="s-row">
+          <span class="tg-avatar">AK</span><span class="tg-avatar tg-lagoon">MO</span><span class="tg-avatar tg-foam">JT</span>
+          <span class="tg-badge">3</span><span class="tg-badge">12</span>
+          <span class="tg-pill tg-regular">Today</span>
+          <span class="tg-bubble is-in" style="padding:8px 14px"><span class="tg-typing" aria-label="Typing"><i></i><i></i><i></i></span></span>
+        </div>
+        <div class="s-row">
+          <span class="tg-bubble is-in">Sea glass you read.</span>
+          <span class="tg-bubble is-out" style="margin:0">Never blurred.</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Apps -->
+  <section class="s-section" id="apps">
+    <div class="s-wrap"><div class="s-head">
+      <span class="s-eyebrow">In apps</span>
+      <h2 class="s-h2">Three screens, one material.</h2>
+      <p class="s-p">A home screen with a floating jelly tab bar, a chat where messages roll under a liquid header, and a control center built from jelly tiles. Every one of them is live.</p>
+    </div></div>
+    <div class="s-phones">
+      <div class="s-phone-wrap"><div class="s-phone"><iframe data-src="home.html" title="Home screen demo" loading="lazy"></iframe></div><a class="s-phone-cap" href="home.html">Home</a></div>
+      <div class="s-phone-wrap"><div class="s-phone"><iframe data-src="chat.html" title="Chat demo" loading="lazy"></iframe></div><a class="s-phone-cap" href="chat.html">Chat</a></div>
+      <div class="s-phone-wrap"><div class="s-phone"><iframe data-src="controls.html" title="Control center demo" loading="lazy"></iframe></div><a class="s-phone-cap" href="controls.html">Controls</a></div>
+    </div>
+  </section>
+
+  <!-- Settings -->
+  <section class="s-wrap s-section">
+    <div class="s-head">
+      <span class="s-eyebrow">Settings people turn on</span>
+      <h2 class="s-h2">It holds up for everyone.</h2>
+      <p class="s-p">These follow the operating system automatically. Flip them here to preview: motion turns into dims and fades, glass turns solid, the rim becomes a plain line.</p>
+    </div>
+    <div class="tg-list" style="max-width:40rem">
+      <label class="s-setting"><div><b>Reduce motion</b><span>No squash, lean or bounce. Dents become dims.</span></div><input class="tg-switch" type="checkbox" role="switch" data-setting="motion" data-on="reduce"></label>
+      <label class="s-setting"><div><b>Reduce transparency</b><span>Every floating surface turns solid.</span></div><input class="tg-switch" type="checkbox" role="switch" data-setting="transparency" data-on="reduce"></label>
+      <label class="s-setting"><div><b>Increase contrast</b><span>The rim becomes a line; secondary text becomes text.</span></div><input class="tg-switch" type="checkbox" role="switch" data-setting="contrast" data-on="more"></label>
+    </div>
+  </section>
+
+  <footer class="s-wrap s-foot">
+    Tideglass 1.0 · <a href="../spec/README.md">Standard</a> · <a href="../SKILL.md">Agent skill</a> · <a href="../kit/tideglass.css">tideglass.css</a> · MIT License
+  </footer>
+</main>
+
+<!-- Playground: a floating jelly bar on a bottom tide. -->
+<div class="s-play">
+  <div class="tg-tide tg-tide-bottom">
+    <div class="tg-dock">
+      <div class="s-play-bar tg-jelly tg-regular">
+        <span class="s-play-label">Brand</span>
+        <div class="tg-seg s-swatches" role="radiogroup" aria-label="Brand" id="brands">
+          <span class="tg-blob" aria-hidden="true"></span>
+          <button class="tg-seg-item" role="radio" aria-checked="true" data-brand="seafoam" aria-label="Seafoam"><span class="s-swatch" style="background:#4DB6BC"></span></button>
+          <button class="tg-seg-item" role="radio" aria-checked="false" data-brand="cornflower" aria-label="Cornflower"><span class="s-swatch" style="background:#7FA6E3"></span></button>
+          <button class="tg-seg-item" role="radio" aria-checked="false" data-brand="lavender" aria-label="Lavender"><span class="s-swatch" style="background:#A894D8"></span></button>
+          <button class="tg-seg-item" role="radio" aria-checked="false" data-brand="amber" aria-label="Amber"><span class="s-swatch" style="background:#E2A35E"></span></button>
+          <button class="tg-seg-item" role="radio" aria-checked="false" data-brand="kelly" aria-label="Kelly"><span class="s-swatch" style="background:#6EC28F"></span></button>
+          <button class="tg-seg-item" role="radio" aria-checked="false" data-brand="coral" aria-label="Coral"><span class="s-swatch" style="background:#EE9A9A"></span></button>
+        </div>
+        <span class="s-play-label">Theme</span>
+        <div class="tg-seg" role="radiogroup" aria-label="Theme" id="themes">
+          <span class="tg-blob" aria-hidden="true"></span>
+          <button class="tg-seg-item" role="radio" aria-checked="true" data-theme="auto">Auto</button>
+          <button class="tg-seg-item" role="radio" aria-checked="false" data-theme="light">Light</button>
+          <button class="tg-seg-item" role="radio" aria-checked="false" data-theme="dark">Dark</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tg-scrim" id="scrim" hidden></div>
+<div class="tg-sheet tg-thick tg-grain" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <span class="tg-grabber" aria-hidden="true"></span>
+  <div class="s-stack" style="max-width:34rem;margin:0 auto">
+    <h3 class="s-card-title" id="sheet-title">Share this collection</h3>
+    <p class="s-card-p">Sheets are Thick glass with grain. Big things move on the Firm spring, so they arrive without a bounce.</p>
+    <div class="s-row"><button class="tg-chip" aria-pressed="true">Anyone with the link</button><button class="tg-chip" aria-pressed="false">Only me</button></div>
+    <div class="s-row"><button class="tg-btn tg-deep" id="sheet-done">Done</button><button class="tg-btn" id="sheet-cancel">Cancel</button></div>
+  </div>
+</div>
+
+<script src="assets/icons.js"></script>
+<script src="../kit/tideglass.js"></script>
+<script>
+  const $ = id => document.getElementById(id);
+
+  // Phones get the page's current settings through their URL.
+  const phones = [...document.querySelectorAll('.s-phone iframe')];
+  const loadPhones = () => phones.forEach(f => { f.src = f.dataset.src + '?haptics=0&' + demo.query(); });
+  loadPhones();
+
+  // Playground: brand and theme.
+  const pick = (host, attr, value) => {
+    const item = host.querySelector(`[${attr}="${value}"]`);
+    if (item) Tideglass.select(host, item);
+  };
+  pick($('brands'), 'data-brand', demo.get('brand'));
+  pick($('themes'), 'data-theme', demo.get('theme'));
+  $('brands').addEventListener('tg-change', e => { demo.set('brand', e.detail.item.dataset.brand); loadPhones(); });
+  $('themes').addEventListener('tg-change', e => { demo.set('theme', e.detail.item.dataset.theme); loadPhones(); });
+
+  // Accessibility previews.
+  document.querySelectorAll('[data-setting]').forEach(sw => {
+    sw.checked = demo.get(sw.dataset.setting) === sw.dataset.on;
+    sw.addEventListener('change', () => { demo.set(sw.dataset.setting, sw.checked ? sw.dataset.on : ''); loadPhones(); });
+  });
+
+  // Chips in the touch section are a single choice.
+  document.querySelectorAll('#touch .tg-chip').forEach(chip => chip.addEventListener('click', () => {
+    chip.parentElement.querySelectorAll('.tg-chip').forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+    Tideglass.haptic('selection', chip);
+  }));
+
+  // Hero tiles toggle.
+  document.querySelectorAll('.s-panel .tg-tile').forEach(t => t.addEventListener('click', () => {
+    const on = t.getAttribute('aria-pressed') !== 'true';
+    t.setAttribute('aria-pressed', String(on));
+    const small = t.querySelector('small');
+    if (small) small.textContent = on ? (small.dataset.on || 'On') : 'Off';
+  }));
+
+  $('holdrow').addEventListener('tg-hold', () => Tideglass.toast('Long-press fired: a menu would grow from the row'));
+
+  // Menu
+  const menu = $('menu'), menuBtn = $('menu-btn');
+  menuBtn.addEventListener('click', () => {
+    const opening = menu.hidden;
+    menuBtn.setAttribute('aria-expanded', String(opening));
+    opening ? Tideglass.open(menu, menuBtn) : Tideglass.close(menu);
+  });
+  menu.addEventListener('click', e => { if (e.target.closest('.tg-menu-item')) { Tideglass.close(menu); menuBtn.setAttribute('aria-expanded', 'false'); } });
+  document.addEventListener('pointerdown', e => {
+    if (!menu.hidden && !menu.contains(e.target) && !menuBtn.contains(e.target)) { Tideglass.close(menu); menuBtn.setAttribute('aria-expanded', 'false'); }
+  });
+
+  // Sheet
+  const sheet = $('sheet'), scrim = $('scrim');
+  let lastFocus = null;
+  const openSheet = () => { lastFocus = document.activeElement; scrim.hidden = false; Tideglass.open(scrim); Tideglass.open(sheet); $('sheet-done').focus({ preventScroll: true }); };
+  const closeSheet = () => { Tideglass.close(sheet); Tideglass.close(scrim); if (lastFocus) lastFocus.focus({ preventScroll: true }); };
+  $('sheet-btn').addEventListener('click', openSheet);
+  [scrim, $('sheet-done'), $('sheet-cancel')].forEach(el => el.addEventListener('click', closeSheet));
+  sheet.querySelectorAll('.tg-chip').forEach(chip => chip.addEventListener('click', () => sheet.querySelectorAll('.tg-chip').forEach(c => c.setAttribute('aria-pressed', String(c === chip)))));
+
+  $('toast-btn').addEventListener('click', () => Tideglass.toast('Saved to your collection'));
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (!sheet.hidden) closeSheet();
+    if (!menu.hidden) { Tideglass.close(menu); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.focus(); }
+  });
+</script>
+</body>
+</html>

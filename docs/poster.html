@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" data-tg-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>Tideglass poster</title>
+<!-- The 1280 x 640 social preview and README banner. Rendered by `npm run shots`. -->
+<link rel="stylesheet" href="../kit/tideglass.css">
+<style>
+  html,body{width:1280px;height:640px;overflow:hidden;box-sizing:border-box}
+  body{display:grid;grid-template-columns:400px 1fr;align-items:center;gap:36px;padding:0 48px}
+  .mark{display:inline-block;width:44px;height:44px;border-radius:999px;vertical-align:middle}
+  h1{font:600 5rem/1 var(--tg-font);letter-spacing:-.035em;margin:20px 0 16px;color:var(--tg-text)}
+  .tag{font:600 1.5rem/1.3 var(--tg-font);letter-spacing:-.015em;color:var(--tg-accent);margin:0 0 28px}
+  .tag span{display:block}
+  .mats{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+  .mats li{display:flex;align-items:center;gap:14px;font:var(--tg-type-body);color:var(--tg-text)}
+  .mats b{font-weight:600}
+  .chip{flex:none;width:52px;height:36px;border-radius:12px}
+  .chip.is-jelly{border-radius:999px}
+  .chip.is-tide{border-radius:0;background:linear-gradient(to bottom,color-mix(in srgb,var(--tg-ground) 92%,transparent) 0 45%,transparent);
+    box-shadow:none;position:relative;overflow:hidden}
+  .chip.is-tide::before{content:"";position:absolute;inset:0;z-index:-1;
+    background:repeating-linear-gradient(to bottom,transparent 0 6px,color-mix(in srgb,var(--tg-deep) 45%,transparent) 6px 9px)}
+  .phones{display:flex;gap:16px;justify-content:center;align-items:center}
+  .phone{--k:.57;box-sizing:border-box;flex:none;width:calc(390px * var(--k) + 12px);height:calc(844px * var(--k) + 12px);padding:6px;border-radius:38px;
+    background:linear-gradient(160deg,#2B3436,#0D1415);box-shadow:0 28px 50px -26px rgb(0 0 0/.5),inset 0 0 0 1.5px rgb(255 255 255/.12)}
+  .phone:nth-child(2){transform:translateY(-22px)}
+  .phone:nth-child(odd){transform:translateY(22px)}
+  .phone iframe{display:block;width:390px;height:844px;border:0;border-radius:56px;transform:scale(var(--k));transform-origin:0 0;background:var(--tg-ground)}
+</style>
+</head>
+<body class="tg-ground tg-grain">
+  <div>
+    <span class="mark tg-jelly tg-lagoon" aria-hidden="true"></span>
+    <h1>Tideglass</h1>
+    <p class="tag"><span>Read on sea glass.</span> <span>Touch jelly.</span> <span>See through the tide.</span></p>
+    <ul class="mats">
+      <li><span class="chip tg-glass" aria-hidden="true"></span><span><b>Sea glass</b> to read: frosted, tinted, still</span></li>
+      <li><span class="chip is-jelly tg-jelly tg-shallow" aria-hidden="true"></span><span><b>Jelly</b> to touch: dents and peels</span></li>
+      <li><span class="chip is-tide" aria-hidden="true"></span><span><b>Tide</b> to see through: content shows under bars</span></li>
+    </ul>
+  </div>
+  <div class="phones">
+    <div class="phone"><iframe src="../demo/home.html?haptics=0&theme=light&scroll=230" title="Home"></iframe></div>
+    <div class="phone"><iframe src="../demo/chat.html?haptics=0&theme=light" title="Chat"></iframe></div>
+    <div class="phone"><iframe src="../demo/controls.html?haptics=0&theme=dark" title="Controls"></iframe></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{
+  "name": "tideglass",
+  "version": "1.0.0",
+  "description": "Tideglass: a premium UI material and touch standard. Read on sea glass, touch jelly, see through the tide.",
+  "keywords": [
+    "design-system",
+    "ui",
+    "css",
+    "design-tokens",
+    "glass",
+    "sea-glass",
+    "jelly",
+    "motion",
+    "accessibility",
+    "claude-skill"
+  ],
+  "license": "MIT",
+  "author": "Tideglass contributors",
+  "homepage": "https://cocaina999.github.io/Tideglass-standard/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cocaina999/Tideglass-standard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cocaina999/Tideglass-standard/issues"
+  },
+  "main": "kit/tideglass.js",
+  "style": "kit/tideglass.css",
+  "exports": {
+    ".": "./kit/tideglass.js",
+    "./css": "./kit/tideglass.css",
+    "./presets.css": "./kit/tideglass-presets.css",
+    "./tokens": "./tokens/tideglass.tokens.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "kit",
+    "tokens",
+    "spec",
+    "SKILL.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "check": "node tools/check.mjs",
+    "tokens": "node tools/tokens.mjs",
+    "springs": "node tools/springs.mjs",
+    "smoke": "node tools/smoke.mjs",
+    "shots": "node tools/shoot.mjs"
+  },
+  "devDependencies": {
+    "puppeteer-core": "23.11.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

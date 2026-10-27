@@ -1,0 +1,1106 @@
+/*!
+ * Tideglass 1.0.0
+ * Read on sea glass. Touch jelly. See through the tide.
+ * Web kit: tokens, materials, touch states and core components.
+ * MIT License. Spec: spec/README.md
+ */
+
+/* =====================================================================
+   0. Registered properties
+   ===================================================================== */
+
+@property --tg-press{syntax:"<number>";inherits:false;initial-value:0}
+@property --tg-tide{syntax:"<number>";inherits:true;initial-value:1}
+
+
+/* =====================================================================
+   1. Brand inputs: the only six values a brand sets.
+      Override on :root, or on any element with [data-tg-brand] or .tg-theme.
+   ===================================================================== */
+
+/* tg:brand */
+:root{
+  --tg-tint:#4DB6BC;   /* bright brand hue: tints every glass layer */
+  --tg-deep:#0E6670;   /* dark brand hue: main action, links, focus */
+  --tg-ink:#0F2A2E;    /* text */
+  --tg-rim-a:#BDE6FF;  /* three pastels for the rim, taken from the hero or logo */
+  --tg-rim-b:#F4B8E4;
+  --tg-rim-c:#FFE4A6;
+}
+
+
+/* =====================================================================
+   2. Scales: type, shape, space, size, blur, motion. Theme-independent.
+   ===================================================================== */
+
+/* tg:scales */
+:root{
+  --tg-font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --tg-font-round:ui-rounded,"SF Pro Rounded",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --tg-type-title:600 1.75rem/2.125rem var(--tg-font);
+  --tg-type-heading:600 1.25rem/1.625rem var(--tg-font);
+  --tg-type-body:400 1rem/1.375rem var(--tg-font);
+  --tg-type-body-strong:600 1rem/1.375rem var(--tg-font);
+  --tg-type-label:400 .8125rem/1.125rem var(--tg-font);
+  --tg-type-label-strong:600 .8125rem/1.125rem var(--tg-font);
+  --tg-type-micro:600 .6875rem/.875rem var(--tg-font);
+
+  --tg-r-xs:8px;
+  --tg-r-s:12px;
+  --tg-r-m:16px;
+  --tg-r-l:22px;
+  --tg-r-xl:28px;
+  --tg-r-full:999px;
+
+  --tg-space-1:4px;
+  --tg-space-2:8px;
+  --tg-space-3:12px;
+  --tg-space-4:16px;
+  --tg-space-5:20px;
+  --tg-space-6:24px;
+  --tg-space-8:32px;
+  --tg-space-10:40px;
+  --tg-space-12:48px;
+  --tg-space-16:64px;
+
+  --tg-size-target:2.75rem;   /* 44px: the smallest touch target */
+  --tg-size-chip:2.25rem;
+  --tg-size-orb:3.5rem;
+  --tg-size-bar:3.5rem;
+
+  --tg-blur-thin:12px;
+  --tg-blur-regular:20px;
+  --tg-blur-thick:28px;
+  --tg-blur-tide:12px;
+  --tg-feather:24px;
+
+  --tg-z-bar:30;
+  --tg-z-menu:40;
+  --tg-z-sheet:50;
+  --tg-z-toast:60;
+
+  --tg-dur-dent:120ms;
+  --tg-dur-peel:440ms;
+  --tg-dur-hold:350ms;
+  --tg-dur-glide:520ms;
+  --tg-dur-firm:360ms;
+  --tg-dur-enter-fade:160ms;
+  --tg-dur-exit:180ms;
+  --tg-dur-exit-l:240ms;
+  --tg-dur-fade:150ms;
+  --tg-dur-arrive:450ms;
+  --tg-dur-drop:500ms;
+  --tg-ease-dent:cubic-bezier(.3,.7,.4,1);
+  --tg-ease-exit:cubic-bezier(.4,0,1,1);
+  /* Springs as "response damping" (seconds, ratio). tools/springs.mjs turns them into curves. */
+  --tg-spring-glide:.4 .75;
+  --tg-spring-firm:.3 1;
+  --tg-spring-peel:.34 .45;
+  /* Glide: 2.8% overshoot, settled by 520ms. Firm: no overshoot, 360ms. Generated, do not hand-edit. */
+  --tg-glide:linear(0, 0.045 4%, 0.153 8%, 0.29 12%, 0.433 16%, 0.568 20%, 0.687 24%, 0.786 28%, 0.864 32%, 0.924 36%, 0.967 40%, 0.996 44%, 1.014 48%, 1.024 52%, 1.028 56%, 1.028 60%, 1.026 64%, 1.022 68%, 1.018 72%, 1.014 76%, 1.011 80%, 1.008 84%, 1.005 88%, 1.003 92%, 1.002 96%, 1);
+  --tg-firm:linear(0, 0.037 4%, 0.123 8%, 0.229 12%, 0.34 16%, 0.445 20%, 0.54 24%, 0.623 28%, 0.694 32%, 0.754 36%, 0.803 40%, 0.844 44%, 0.876 48%, 0.902 52%, 0.923 56%, 0.94 60%, 0.953 64%, 0.964 68%, 0.972 72%, 0.978 76%, 0.983 80%, 0.987 84%, 0.99 88%, 0.992 92%, 0.994 96%, 1);
+}
+@supports not (transition-timing-function:linear(0,1)){
+  :root{--tg-glide:cubic-bezier(.34,1.2,.5,1);--tg-firm:cubic-bezier(.2,.8,.2,1)}
+}
+
+
+/* =====================================================================
+   3. Theme roles. Everything here derives from the brand inputs.
+      Scope roots (:root, .tg-theme, [data-tg-theme], [data-tg-brand])
+      recompute them, so a section can carry its own brand or theme.
+   ===================================================================== */
+
+/* tg:light */
+:root,.tg-theme,[data-tg-theme],[data-tg-brand]{
+  color-scheme:light;
+  --tg-base:#FFFFFF;
+  --tg-ground:color-mix(in srgb,var(--tg-tint) 10%,#F5F7F7);
+  --tg-pool-1:color-mix(in srgb,var(--tg-tint) 30%,transparent);
+  --tg-pool-2:color-mix(in srgb,var(--tg-rim-a) 60%,transparent);
+  --tg-pool-3:color-mix(in srgb,var(--tg-rim-c) 55%,transparent);
+  --tg-pool-4:color-mix(in srgb,var(--tg-rim-b) 32%,transparent);
+  --tg-foam-1:color-mix(in srgb,var(--tg-tint) 4%,var(--tg-base));
+  --tg-foam-2:color-mix(in srgb,var(--tg-tint) 12%,var(--tg-base));
+  --tg-shallow-1:color-mix(in srgb,var(--tg-tint) 22%,var(--tg-base));
+  --tg-shallow-2:color-mix(in srgb,var(--tg-tint) 45%,var(--tg-base));
+  --tg-lagoon-1:color-mix(in srgb,var(--tg-tint) 30%,var(--tg-base));
+  --tg-lagoon-2:color-mix(in srgb,var(--tg-tint) 62%,var(--tg-base));
+  --tg-deep-1:color-mix(in srgb,var(--tg-deep) 82%,var(--tg-tint));
+  --tg-deep-2:var(--tg-deep);
+  --tg-text:var(--tg-ink);
+  --tg-text-2:color-mix(in srgb,var(--tg-text) 72%,transparent);
+  --tg-accent:var(--tg-deep);
+  --tg-on-deep:#FFFFFF;
+  --tg-separator:color-mix(in srgb,var(--tg-text) 10%,transparent);
+  --tg-hairline:rgb(255 255 255/.9);
+  --tg-edge:color-mix(in srgb,var(--tg-deep) 14%,transparent);
+  --tg-glow:color-mix(in srgb,var(--tg-tint) 40%,transparent);
+  --tg-sheen:rgb(255 255 255/.55);
+  --tg-shade:color-mix(in srgb,var(--tg-deep) 16%,transparent);
+  --tg-caustic:color-mix(in srgb,var(--tg-tint) 42%,transparent);
+  --tg-rim-hi:#FFFFFF;
+  --tg-rim-o:.8;
+  --tg-rim:linear-gradient(135deg,var(--tg-rim-hi) 0%,var(--tg-rim-a) 26%,var(--tg-rim-b) 56%,var(--tg-rim-c) 80%,var(--tg-rim-hi) 100%);
+  --tg-prism-o:50%;
+  --tg-veil:color-mix(in srgb,var(--tg-ground) 74%,transparent);
+  --tg-veil-soft:color-mix(in srgb,var(--tg-ground) 60%,transparent);
+  --tg-scrim:color-mix(in srgb,var(--tg-ink) 24%,transparent);
+  --tg-o-thin:56%;
+  --tg-o-regular:68%;
+  --tg-o-thick:84%;
+  --tg-grain-o:.05;
+  --tg-grain-blend:multiply;
+  --tg-danger:#B42318;
+  --tg-success:#12703A;
+  --tg-warning:#8A5300;
+}
+
+/* tg:dark-auto */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tg-theme="light"]),:root:not([data-tg-theme="light"]) :is(.tg-theme,[data-tg-brand]):not([data-tg-theme]){
+    color-scheme:dark;
+    --tg-base:color-mix(in srgb,var(--tg-tint) 6%,#121A1C);
+    --tg-ground:color-mix(in srgb,var(--tg-tint) 10%,#090E0F);
+    --tg-pool-1:color-mix(in srgb,var(--tg-tint) 22%,transparent);
+    --tg-pool-2:color-mix(in srgb,var(--tg-rim-a) 10%,transparent);
+    --tg-pool-3:color-mix(in srgb,var(--tg-rim-c) 7%,transparent);
+    --tg-pool-4:color-mix(in srgb,var(--tg-rim-b) 9%,transparent);
+    --tg-foam-1:color-mix(in srgb,var(--tg-tint) 7%,var(--tg-base));
+    --tg-foam-2:color-mix(in srgb,var(--tg-tint) 13%,var(--tg-base));
+    --tg-shallow-1:color-mix(in srgb,var(--tg-tint) 18%,var(--tg-base));
+    --tg-shallow-2:color-mix(in srgb,var(--tg-tint) 30%,var(--tg-base));
+    --tg-lagoon-1:color-mix(in srgb,var(--tg-tint) 26%,var(--tg-base));
+    --tg-lagoon-2:color-mix(in srgb,var(--tg-tint) 40%,var(--tg-base));
+    --tg-text:color-mix(in srgb,var(--tg-tint) 8%,#F2F7F7);
+    --tg-accent:color-mix(in srgb,var(--tg-tint) 80%,#FFFFFF);
+    --tg-hairline:rgb(255 255 255/.14);
+    --tg-edge:rgb(0 0 0/.35);
+    --tg-glow:color-mix(in srgb,var(--tg-tint) 28%,transparent);
+    --tg-sheen:rgb(255 255 255/.10);
+    --tg-shade:rgb(0 0 0/.45);
+    --tg-caustic:color-mix(in srgb,var(--tg-tint) 24%,transparent);
+    --tg-rim-hi:rgb(255 255 255/.6);
+    --tg-rim-o:.42;
+    --tg-prism-o:22%;
+    --tg-scrim:rgb(0 0 0/.5);
+    --tg-o-thin:64%;
+    --tg-o-regular:76%;
+    --tg-o-thick:88%;
+    --tg-grain-o:.06;
+    --tg-grain-blend:screen;
+    --tg-danger:#FF8A80;
+    --tg-success:#6FD394;
+    --tg-warning:#F2C14E;
+  }
+}
+
+/* Forced dark. Must stay identical to the block above; `npm run check` enforces it. */
+/* tg:dark-forced */
+[data-tg-theme="dark"],[data-tg-theme="dark"] :is(.tg-theme,[data-tg-brand]):not([data-tg-theme]){
+  color-scheme:dark;
+  --tg-base:color-mix(in srgb,var(--tg-tint) 6%,#121A1C);
+  --tg-ground:color-mix(in srgb,var(--tg-tint) 10%,#090E0F);
+  --tg-pool-1:color-mix(in srgb,var(--tg-tint) 22%,transparent);
+  --tg-pool-2:color-mix(in srgb,var(--tg-rim-a) 10%,transparent);
+  --tg-pool-3:color-mix(in srgb,var(--tg-rim-c) 7%,transparent);
+  --tg-pool-4:color-mix(in srgb,var(--tg-rim-b) 9%,transparent);
+  --tg-foam-1:color-mix(in srgb,var(--tg-tint) 7%,var(--tg-base));
+  --tg-foam-2:color-mix(in srgb,var(--tg-tint) 13%,var(--tg-base));
+  --tg-shallow-1:color-mix(in srgb,var(--tg-tint) 18%,var(--tg-base));
+  --tg-shallow-2:color-mix(in srgb,var(--tg-tint) 30%,var(--tg-base));
+  --tg-lagoon-1:color-mix(in srgb,var(--tg-tint) 26%,var(--tg-base));
+  --tg-lagoon-2:color-mix(in srgb,var(--tg-tint) 40%,var(--tg-base));
+  --tg-text:color-mix(in srgb,var(--tg-tint) 8%,#F2F7F7);
+  --tg-accent:color-mix(in srgb,var(--tg-tint) 80%,#FFFFFF);
+  --tg-hairline:rgb(255 255 255/.14);
+  --tg-edge:rgb(0 0 0/.35);
+  --tg-glow:color-mix(in srgb,var(--tg-tint) 28%,transparent);
+  --tg-sheen:rgb(255 255 255/.10);
+  --tg-shade:rgb(0 0 0/.45);
+  --tg-caustic:color-mix(in srgb,var(--tg-tint) 24%,transparent);
+  --tg-rim-hi:rgb(255 255 255/.6);
+  --tg-rim-o:.42;
+  --tg-prism-o:22%;
+  --tg-scrim:rgb(0 0 0/.5);
+  --tg-o-thin:64%;
+  --tg-o-regular:76%;
+  --tg-o-thick:88%;
+  --tg-grain-o:.06;
+  --tg-grain-blend:screen;
+  --tg-danger:#FF8A80;
+  --tg-success:#6FD394;
+  --tg-warning:#F2C14E;
+}
+
+
+/* =====================================================================
+   4. Ground: the pale, pooled backdrop that makes glass read as glass.
+      Pools and grain sit on fixed layers so scrolling never repaints them.
+   ===================================================================== */
+
+.tg-ground{
+  position:relative;
+  isolation:isolate;
+  min-height:100%;
+  color:var(--tg-text);
+  background-color:var(--tg-ground);
+  font:var(--tg-type-body);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+.tg-ground::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(48% 38% at 0% 12%,var(--tg-pool-1),transparent 70%),
+    radial-gradient(40% 32% at 72% 40%,var(--tg-pool-2),transparent 70%),
+    radial-gradient(46% 36% at 100% 84%,var(--tg-pool-3),transparent 70%),
+    radial-gradient(38% 30% at 10% 96%,var(--tg-pool-4),transparent 70%);
+}
+
+
+/* =====================================================================
+   5. Surfaces. Two families share one recipe:
+      sea glass (matte, for reading) and jelly (gummy, for touching).
+      Background layers, top to bottom: sheen, prism, pool, press tint, body.
+   ===================================================================== */
+
+:where(.tg-glass,.tg-card,.tg-list,.tg-bubble,.tg-sheet,.tg-menu,.tg-toast,.tg-field,.tg-seg,
+       .tg-jelly,.tg-deep,.tg-btn,.tg-icon-btn,.tg-orb,.tg-chip,.tg-tile,.tg-tabbar,.tg-composer,.tg-pill,.tg-avatar,.tg-blob,.tg-thumb){
+  --tg-press:0;
+  --_o:100%;
+  --_c1:var(--tg-foam-1);
+  --_c2:var(--tg-foam-2);
+  --_sheen:none;
+  --_prism:none;
+  --_pool:none;
+  --_press-c:var(--tg-deep);
+  --_lift-c:var(--tg-shade);
+  --_inner:inset 0 1px 0 var(--tg-hairline),inset 0 -14px 24px -16px var(--tg-glow);
+  --_drop:0 1px 2px var(--tg-shade),0 10px 28px -12px var(--tg-shade);
+  position:relative;
+  isolation:isolate;
+  color:var(--tg-text);
+  background-color:transparent;
+  background-image:
+    var(--_sheen),
+    var(--_prism),
+    var(--_pool),
+    linear-gradient(color-mix(in srgb,var(--_press-c) calc(var(--tg-press) * 6%),transparent) 0 0),
+    linear-gradient(180deg,color-mix(in srgb,var(--_c1) var(--_o),transparent),color-mix(in srgb,var(--_c2) var(--_o),transparent));
+  box-shadow:var(--_inner),var(--_drop);
+}
+
+/* Jelly: a still top sheen, a darker bottom edge for thickness, a tinted caustic below. */
+:where(.tg-jelly,.tg-deep,.tg-btn,.tg-icon-btn,.tg-orb,.tg-chip,.tg-tile,.tg-tabbar,.tg-composer,.tg-pill,.tg-avatar,.tg-blob,.tg-thumb){
+  --_sheen:radial-gradient(120% 70% at 50% -16%,var(--tg-sheen),transparent 62%);
+  --_lift-c:var(--tg-caustic);
+  --_inner:inset 0 1px 0 var(--tg-hairline),inset 0 -1px 0 var(--tg-edge),inset 0 -10px 18px -10px var(--tg-glow);
+  --_drop:0 1px 2px var(--tg-shade),0 8px 20px -10px var(--tg-caustic);
+}
+
+/* The rim: 1px pastel edge, brightest top-left and bottom-right. It never moves. */
+:where(.tg-glass,.tg-card,.tg-list,.tg-bubble,.tg-sheet,.tg-menu,.tg-toast,.tg-field,.tg-seg,
+       .tg-jelly,.tg-deep,.tg-btn,.tg-icon-btn,.tg-orb,.tg-chip,.tg-tile,.tg-tabbar,.tg-composer,.tg-pill,.tg-avatar,.tg-blob,.tg-thumb)::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:1px;
+  pointer-events:none;
+  background:var(--tg-rim);
+  opacity:var(--tg-rim-o);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+}
+
+
+/* =====================================================================
+   6. Layers: four depths of the same tint.
+   ===================================================================== */
+
+/* Component defaults stay at zero specificity so a layer class always wins. */
+:where(.tg-avatar){--_c1:var(--tg-shallow-1);--_c2:var(--tg-shallow-2)}
+:where(.tg-blob){--_c1:var(--tg-lagoon-1);--_c2:var(--tg-lagoon-2)}
+
+.tg-foam{--_c1:var(--tg-foam-1);--_c2:var(--tg-foam-2)}
+.tg-shallow{--_c1:var(--tg-shallow-1);--_c2:var(--tg-shallow-2)}
+.tg-lagoon{--_c1:var(--tg-lagoon-1);--_c2:var(--tg-lagoon-2)}
+
+
+/* =====================================================================
+   7. Thickness: opacity and blur together, chosen by job.
+      No class = Solid (for anything you read).
+   ===================================================================== */
+
+.tg-thin{--_o:var(--tg-o-thin);--_b:var(--tg-blur-thin)}
+.tg-regular{--_o:var(--tg-o-regular);--_b:var(--tg-blur-regular)}
+.tg-thick{--_o:var(--tg-o-thick);--_b:var(--tg-blur-thick)}
+.tg-thin,.tg-regular,.tg-thick{
+  -webkit-backdrop-filter:blur(var(--_b)) saturate(110%);
+  backdrop-filter:blur(var(--_b)) saturate(110%);
+}
+.tg-regular,.tg-thick{--_drop:0 2px 6px var(--tg-shade),0 20px 44px -18px var(--_lift-c)}
+
+
+/* =====================================================================
+   8. Deep: the one main action. Always solid. Lit like a gummy:
+      sheen on top, light pooling at the bottom, dark body between.
+   ===================================================================== */
+
+.tg-deep,.tg-orb,.tg-tile:is([aria-pressed="true"],[aria-checked="true"]){
+  --_o:100%;
+  --_c1:var(--tg-deep-1);
+  --_c2:var(--tg-deep-2);
+  --_sheen:radial-gradient(110% 60% at 50% -14%,rgb(255 255 255/.24),transparent 62%);
+  --_prism:none;
+  --_pool:radial-gradient(90% 70% at 50% 120%,color-mix(in srgb,var(--tg-tint) 88%,#FFFFFF),transparent 70%);
+  --_press-c:#000;
+  --_inner:inset 0 1px 0 rgb(255 255 255/.32),inset 0 -1px 0 rgb(0 0 0/.22);
+  --_drop:0 1px 2px var(--tg-shade),0 10px 24px -10px color-mix(in srgb,var(--tg-deep) 60%,transparent);
+  --tg-rim-o:.5;
+  --tg-text:var(--tg-on-deep);
+  --tg-text-2:var(--tg-on-deep);
+  color:var(--tg-on-deep);
+}
+
+
+/* =====================================================================
+   9. Modifiers: prism (pastel light pooling inside large jelly) and grain.
+   ===================================================================== */
+
+.tg-prism,.tg-tile{
+  --_prism:
+    radial-gradient(55% 60% at 10% 108%,color-mix(in srgb,var(--tg-rim-b) var(--tg-prism-o),transparent),transparent 70%),
+    radial-gradient(50% 55% at 92% 104%,color-mix(in srgb,var(--tg-rim-c) var(--tg-prism-o),transparent),transparent 70%),
+    radial-gradient(40% 50% at 55% 112%,color-mix(in srgb,var(--tg-rim-a) var(--tg-prism-o),transparent),transparent 70%);
+}
+
+.tg-grain::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  border-radius:inherit;
+  pointer-events:none;
+  opacity:var(--tg-grain-o);
+  mix-blend-mode:var(--tg-grain-blend);
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.tg-ground.tg-grain::before{position:fixed}
+
+
+/* =====================================================================
+   10. Tide: the liquid layer at scroll edges. No rim, no shadow, no press.
+       Content shows faintly through it; the dense band carries text.
+   ===================================================================== */
+
+.tg-tide{
+  --_feather:var(--tg-feather);
+  --_veil:var(--tg-veil);
+  --_tb:var(--tg-blur-tide);
+  position:relative;
+  z-index:var(--tg-z-bar);
+  color:var(--tg-text);
+  background:linear-gradient(var(--_dir,180deg),color-mix(in srgb,var(--_veil) calc(var(--tg-tide) * 100%),transparent) calc(100% - var(--_feather)),transparent) border-box no-repeat;
+}
+.tg-tide::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:var(--tg-tide);
+  -webkit-backdrop-filter:blur(var(--_tb));
+  backdrop-filter:blur(var(--_tb));
+  -webkit-mask-image:linear-gradient(var(--_dir,180deg),#000 calc(100% - var(--_feather) * 1.5),transparent);
+  mask-image:linear-gradient(var(--_dir,180deg),#000 calc(100% - var(--_feather) * 1.5),transparent);
+}
+/* The feather is a transparent border, so it never fights the bar's own padding. */
+.tg-tide-top{
+  position:sticky;
+  top:0;
+  border-bottom:var(--_feather) solid transparent;
+  margin-bottom:calc(-1 * var(--_feather));
+}
+.tg-tide-bottom{
+  --_dir:0deg;
+  --_veil:var(--tg-veil-soft);
+  position:sticky;
+  bottom:0;
+  border-top:var(--_feather) solid transparent;
+  margin-top:calc(-1 * var(--_feather));
+}
+/* data-tide="auto": the tide rises only once content scrolls under it. */
+@supports (animation-timeline:scroll()){
+  .tg-tide[data-tide="auto"]{
+    animation:tg-tide-in linear both;
+    animation-timeline:scroll();
+    animation-range:0 40px;
+  }
+}
+@keyframes tg-tide-in{from{--tg-tide:0}to{--tg-tide:1}}
+
+
+/* =====================================================================
+   11. Touch: dent and peel. tideglass.js sets data-tg-tier and
+       data-tg-state; these rules turn them into motion.
+   ===================================================================== */
+
+:where(.tg-press,.tg-btn,.tg-icon-btn,.tg-orb,.tg-chip,.tg-tile,.tg-key,.tg-switch,.tg-tab,.tg-seg-item,.tg-menu-item,
+       a.tg-row,button.tg-row,.tg-row[role="button"],[data-press]){
+  --_dx:1.02;--_dy:.955;--_sink:.5px;--_px:.992;--_py:1.03;--_lift:-1px;--_sx:1.004;--_sy:.996;
+  --_press-tr:transform var(--tg-dur-dent) var(--tg-ease-dent),--tg-press var(--tg-dur-dent) var(--tg-ease-dent);
+  transform-origin:var(--tg-ox,50%) var(--tg-oy,50%);
+  transition:var(--_press-tr);
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+[data-tg-tier="s"]{--_dx:1.035;--_dy:.93;--_sink:1px;--_px:.985;--_py:1.05;--_lift:-1.5px;--_sx:1.008;--_sy:.992}
+[data-tg-tier="m"]{--_dx:1.02;--_dy:.955;--_sink:.5px;--_px:.992;--_py:1.03;--_lift:-1px;--_sx:1.004;--_sy:.996}
+[data-tg-tier="l"]{--_dx:.985;--_dy:.985;--_sink:0px;--_px:1.004;--_py:1.004;--_lift:0px;--_sx:1;--_sy:1}
+[data-tg-tier="firm"]{--_dx:.97;--_dy:.97;--_sink:0px}
+[data-tg-tier="lift"]{--_dx:1.15;--_dy:1.15;--_sink:-4px}
+
+[data-tg-state="dent"]{
+  --tg-press:1;
+  transform:translate(var(--tg-lx,0px),calc(var(--_sink) + var(--tg-ly,0px))) scale(var(--_dx),var(--_dy));
+}
+[data-tg-state="peel"]{animation:tg-peel var(--tg-dur-peel) both}
+[data-tg-state="held"]{animation:tg-pop 320ms both}
+
+[data-tg-tier="firm"][data-tg-state="dent"],
+[data-tg-tier="lift"][data-tg-state="dent"]{--tg-press:0}
+[data-tg-tier="lift"][data-tg-state="dent"]{z-index:2}
+[data-tg-tier="firm"]:not([data-tg-state="dent"]){transition:transform var(--tg-dur-firm) var(--tg-firm)}
+[data-tg-tier="lift"]:not([data-tg-state="dent"]){transition:transform var(--tg-dur-glide) var(--tg-glide)}
+
+/* Long-press charges: the dent deepens until the threshold, then pops out. */
+[data-hold][data-tg-state="dent"]{
+  transform:scale(.965);
+  transition:transform var(--tg-dur-hold) cubic-bezier(.3,0,.7,1),--tg-press var(--tg-dur-dent) var(--tg-ease-dent);
+}
+
+@keyframes tg-peel{
+  0%{transform:translate(var(--tg-lx,0px),calc(var(--_sink) + var(--tg-ly,0px))) scale(var(--_dx),var(--_dy));animation-timing-function:cubic-bezier(.2,.7,.3,1)}
+  38%{transform:translateY(var(--_lift)) scale(var(--_px),var(--_py));animation-timing-function:cubic-bezier(.4,0,.5,1)}
+  70%{transform:scale(var(--_sx),var(--_sy));animation-timing-function:cubic-bezier(.3,0,.3,1)}
+  100%{transform:none}
+}
+@keyframes tg-pop{
+  0%{transform:scale(.965)}
+  45%{transform:scale(1.012)}
+  100%{transform:none}
+}
+
+/* Hover never moves anything; it only deepens the tint a little. */
+@media (hover:hover){
+  :where(.tg-btn,.tg-icon-btn,.tg-chip,.tg-tile,.tg-pill.tg-press):hover{--_press-c:var(--tg-tint);--tg-press:.5}
+}
+
+
+/* =====================================================================
+   12. Motion beyond touch: enter, exit, arrive, drop.
+   ===================================================================== */
+
+.tg-enter{animation:tg-grow var(--tg-dur-glide) var(--tg-glide) both,tg-fade-in var(--tg-dur-enter-fade) linear both}
+.tg-exit{animation:tg-shrink var(--tg-dur-exit) var(--tg-ease-exit) both}
+.tg-arrive{animation:tg-arrive var(--tg-dur-arrive) both}
+.tg-drop{animation:tg-drop var(--tg-dur-drop) both}
+.tg-sheet.tg-enter{animation:tg-rise var(--tg-dur-firm) var(--tg-firm) both}
+.tg-sheet.tg-exit{animation:tg-sink var(--tg-dur-exit-l) var(--tg-ease-exit) both}
+
+@keyframes tg-grow{from{transform:scale(.92)}}
+@keyframes tg-fade-in{from{opacity:0}}
+@keyframes tg-shrink{to{transform:scale(.96);opacity:0}}
+@keyframes tg-rise{from{transform:translateY(100%)}}
+@keyframes tg-sink{to{transform:translateY(100%)}}
+@keyframes tg-arrive{
+  0%{transform:scale(.6);opacity:0;animation-timing-function:cubic-bezier(.2,.7,.3,1)}
+  55%{transform:scale(1.04);opacity:1;animation-timing-function:ease-in-out}
+  80%{transform:scale(.98);animation-timing-function:ease-out}
+  100%{transform:none}
+}
+@keyframes tg-drop{
+  0%{transform:scale(.25);opacity:0;animation-timing-function:cubic-bezier(.2,.7,.3,1)}
+  50%{transform:scale(1.16);opacity:1;animation-timing-function:ease-in-out}
+  75%{transform:scale(.93);animation-timing-function:ease-out}
+  100%{transform:none}
+}
+
+
+/* =====================================================================
+   13. Components
+   ===================================================================== */
+
+/* Components set their own display, so [hidden] needs help to win. */
+[class*="tg-"][hidden]{display:none!important}
+
+/* Icons: 24px grid, 1.75 stroke, round caps. Filled only when selected. */
+.tg-icon{width:1.5rem;height:1.5rem;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+
+/* Top bar and dock: the content that lives inside a tide. */
+.tg-appbar{
+  display:flex;
+  align-items:center;
+  gap:var(--tg-space-2);
+  min-height:var(--tg-size-bar);
+  padding:calc(env(safe-area-inset-top,0px) + 6px) var(--tg-space-3) 6px;
+}
+.tg-appbar-title{flex:1;min-width:0;font:var(--tg-type-body-strong);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tg-dock{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:6px var(--tg-space-3) calc(env(safe-area-inset-bottom,0px) + 10px);
+}
+
+/* Button: capsule jelly. Default Foam; add a layer class to change depth. */
+.tg-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--tg-space-2);
+  min-height:var(--tg-size-target);
+  padding:0 1.25rem;
+  border:0;
+  border-radius:var(--tg-r-full);
+  font:var(--tg-type-body-strong);
+  text-decoration:none;
+  white-space:nowrap;
+  cursor:pointer;
+}
+.tg-btn .tg-icon{width:1.25rem;height:1.25rem}
+.tg-btn.is-danger{color:var(--tg-danger)}
+
+.tg-icon-btn{
+  display:inline-grid;
+  place-items:center;
+  flex:none;
+  width:var(--tg-size-target);
+  height:var(--tg-size-target);
+  padding:0;
+  border:0;
+  border-radius:50%;
+  cursor:pointer;
+}
+.tg-icon-btn .tg-icon{width:1.375rem;height:1.375rem}
+/* Plain: an icon button inside a bar that is already glass. Same touch, no second surface. */
+.tg-icon-btn.is-plain{background:none;box-shadow:none}
+.tg-icon-btn.is-plain::after{display:none}
+
+/* Orb: the one main action on a screen (send, mic, new). Deep. */
+.tg-orb{
+  display:inline-grid;
+  place-items:center;
+  flex:none;
+  width:var(--tg-size-orb);
+  height:var(--tg-size-orb);
+  padding:0;
+  border:0;
+  border-radius:50%;
+  cursor:pointer;
+}
+.tg-orb.is-small{width:var(--tg-size-target);height:var(--tg-size-target)}
+.tg-orb .tg-icon{width:1.5rem;height:1.5rem;stroke-width:2}
+
+.tg-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  min-height:var(--tg-size-chip);
+  padding:0 .875rem;
+  border:0;
+  border-radius:var(--tg-r-full);
+  font:var(--tg-type-label-strong);
+  white-space:nowrap;
+  cursor:pointer;
+}
+.tg-chip .tg-icon{width:1rem;height:1rem}
+/* Extends the hit area to 44px without changing the look. */
+.tg-chip::before{content:"";position:absolute;inset:-4px 0}
+.tg-chip:is([aria-pressed="true"],[aria-selected="true"],[aria-checked="true"]){--_c1:var(--tg-lagoon-1);--_c2:var(--tg-lagoon-2)}
+
+/* Pill: small floating label (dates, counts, status). */
+.tg-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  min-height:1.75rem;
+  padding:0 .75rem;
+  border-radius:var(--tg-r-full);
+  font:var(--tg-type-micro);
+  white-space:nowrap;
+}
+
+/* Tile: a large jelly toggle or shortcut. Capsule by default; .tg-stack stacks it. */
+.tg-tile{
+  display:flex;
+  align-items:center;
+  gap:var(--tg-space-3);
+  min-height:4.5rem;
+  padding:var(--tg-space-3) var(--tg-space-4) var(--tg-space-3) var(--tg-space-3);
+  border:0;
+  border-radius:var(--tg-r-full);
+  font:var(--tg-type-body-strong);
+  text-align:start;
+  text-decoration:none;
+  cursor:pointer;
+}
+.tg-tile.tg-stack{flex-direction:column;justify-content:center;gap:var(--tg-space-2);padding:var(--tg-space-4) var(--tg-space-2) var(--tg-space-3);border-radius:var(--tg-r-l);text-align:center;font:var(--tg-type-label-strong)}
+.tg-tile-icon{
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:2.5rem;
+  height:2.5rem;
+  border-radius:50%;
+  background:color-mix(in srgb,var(--tg-base) 55%,transparent);
+  box-shadow:inset 0 1px 0 var(--tg-hairline),0 1px 2px var(--tg-shade);
+}
+.tg-tile:is([aria-pressed="true"],[aria-checked="true"]) .tg-tile-icon{background:rgb(255 255 255/.16);box-shadow:inset 0 1px 0 rgb(255 255 255/.25)}
+.tg-tile-text{display:flex;flex-direction:column;min-width:0}
+.tg-tile-text small{font:var(--tg-type-label);color:var(--tg-text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Thumb: the small jelly square that leads a row. */
+.tg-thumb{display:grid;place-items:center;flex:none;width:var(--tg-size-target);height:var(--tg-size-target);border-radius:var(--tg-r-s)}
+.tg-thumb .tg-icon{width:1.25rem;height:1.25rem}
+
+.tg-avatar{
+  display:inline-grid;
+  place-items:center;
+  flex:none;
+  width:2.5rem;
+  height:2.5rem;
+  border-radius:50%;
+  overflow:hidden;
+  font:var(--tg-type-label-strong);
+}
+.tg-avatar img{width:100%;height:100%;object-fit:cover}
+
+.tg-badge{
+  display:inline-grid;
+  place-items:center;
+  min-width:1.25rem;
+  height:1.25rem;
+  padding:0 .375rem;
+  border-radius:var(--tg-r-full);
+  background:var(--tg-deep);
+  color:var(--tg-on-deep);
+  font:var(--tg-type-micro);
+  font-family:var(--tg-font-round);
+  font-variant-numeric:tabular-nums;
+  box-shadow:0 0 0 2px var(--tg-base);
+}
+
+/* Card and list: sea glass you read on. Solid. */
+.tg-card{border-radius:var(--tg-r-l);padding:var(--tg-space-4)}
+.tg-list{display:flex;flex-direction:column;border-radius:var(--tg-r-l);padding:6px}
+
+/* Row: L tier when interactive. Flat inside its list; tint shows the press. */
+.tg-row{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:var(--tg-space-3);
+  width:100%;
+  min-height:3.5rem;
+  padding:10px var(--tg-space-3);
+  border:0;
+  border-radius:calc(var(--tg-r-l) - 6px);
+  background-color:color-mix(in srgb,var(--tg-tint) calc(var(--tg-press) * 12%),transparent);
+  color:inherit;
+  font:inherit;
+  text-align:start;
+  text-decoration:none;
+}
+:is(a,button).tg-row,.tg-row[role="button"]{cursor:pointer}
+.tg-row + .tg-row::before{content:"";position:absolute;top:0;left:var(--tg-row-inset,var(--tg-space-3));right:var(--tg-space-3);height:1px;background:var(--tg-separator)}
+@media (hover:hover){:is(a,button).tg-row:hover,.tg-row[role="button"]:hover{background-image:linear-gradient(color-mix(in srgb,var(--tg-tint) 6%,transparent) 0 0)}}
+.tg-row-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.tg-row-title{display:flex;align-items:baseline;gap:var(--tg-space-2);font:var(--tg-type-body-strong)}
+.tg-row-title > :first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tg-row-sub{font:var(--tg-type-label);color:var(--tg-text-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tg-row-meta{font:var(--tg-type-label);color:var(--tg-text-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* Field and composer: typing surfaces never dent. Focus brightens the rim. */
+.tg-field{
+  display:flex;
+  align-items:center;
+  gap:var(--tg-space-2);
+  min-height:3rem;
+  padding:0 6px 0 var(--tg-space-4);
+  border-radius:var(--tg-r-full);
+  cursor:text;
+  transition:box-shadow 200ms ease;
+}
+.tg-field > .tg-icon{width:1.25rem;height:1.25rem;color:var(--tg-text-2)}
+.tg-field > :is(input,textarea),.tg-composer > :is(input,textarea){
+  flex:1;
+  min-width:0;
+  margin:0;
+  padding:.6875rem 0;
+  border:0;
+  outline:0;
+  background:none;
+  color:var(--tg-text);
+  font:var(--tg-type-body);
+  resize:none;
+}
+.tg-field > :is(input,textarea)::placeholder,.tg-composer > :is(input,textarea)::placeholder{color:var(--tg-text-2);opacity:1}
+.tg-field:focus-within,.tg-composer:focus-within{
+  --tg-rim-o:1;
+  box-shadow:var(--_inner),var(--_drop),0 0 0 1.5px var(--tg-accent),0 0 0 6px color-mix(in srgb,var(--tg-tint) 22%,transparent);
+}
+.tg-composer{
+  flex:1;
+  display:flex;
+  align-items:flex-end;
+  gap:4px;
+  min-height:var(--tg-size-orb);
+  padding:6px;
+  border-radius:calc(var(--tg-size-orb) / 2);
+  transition:box-shadow 200ms ease;
+}
+.tg-composer > :is(input,textarea){padding:.6875rem 6px}
+
+/* Switch: the thumb glides with a stretch (tideglass.js); the track tint fades. */
+.tg-switch{
+  -webkit-appearance:none;
+  appearance:none;
+  position:relative;
+  flex:none;
+  width:3.25rem;
+  height:2rem;
+  margin:0;
+  border-radius:var(--tg-r-full);
+  background-color:color-mix(in srgb,var(--tg-text) 14%,transparent);
+  box-shadow:inset 0 1px 2px var(--tg-shade),inset 0 -1px 0 var(--tg-hairline);
+  cursor:pointer;
+  transition:var(--_press-tr),background-color var(--tg-dur-fade) ease;
+}
+.tg-switch::before{
+  content:"";
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:calc(2rem - 6px);
+  height:calc(2rem - 6px);
+  border-radius:50%;
+  background:radial-gradient(120% 80% at 50% -10%,#FFFFFF,transparent 60%),linear-gradient(180deg,#FFFFFF,color-mix(in srgb,var(--tg-tint) 10%,#FFFFFF));
+  box-shadow:0 1px 2px rgb(0 0 0/.18),0 4px 10px -4px var(--tg-caustic),inset 0 -1px 0 var(--tg-edge);
+  transition:transform var(--tg-dur-glide) var(--tg-glide);
+}
+.tg-switch:checked{background-color:var(--tg-deep-1)}
+.tg-switch:checked::before{transform:translateX(1.25rem)}
+.tg-switch:disabled{opacity:.4;cursor:default}
+
+/* Slider: a jelly track with a Deep fill and a bar handle. tideglass.js keeps --tg-value in sync. */
+.tg-slider{
+  --_h:2.75rem;
+  --_bar:4px;
+  -webkit-appearance:none;
+  appearance:none;
+  width:100%;
+  height:var(--_h);
+  margin:0;
+  background:none;
+  cursor:pointer;
+  touch-action:pan-y;
+}
+.tg-slider::-webkit-slider-runnable-track{
+  height:var(--_h);
+  border-radius:var(--tg-r-full);
+  background:
+    radial-gradient(120% 70% at 50% -16%,var(--tg-sheen),transparent 62%),
+    linear-gradient(90deg,var(--tg-deep-1),var(--tg-deep-2)) 0 0/calc(var(--tg-value,.5) * (100% - var(--_h)) + var(--_h) / 2) 100% no-repeat,
+    linear-gradient(180deg,var(--tg-foam-1),var(--tg-foam-2));
+  box-shadow:inset 0 1px 0 var(--tg-hairline),inset 0 -1px 0 var(--tg-edge),0 8px 20px -10px var(--tg-caustic);
+}
+.tg-slider::-moz-range-track{
+  height:var(--_h);
+  border-radius:var(--tg-r-full);
+  background:radial-gradient(120% 70% at 50% -16%,var(--tg-sheen),transparent 62%),linear-gradient(180deg,var(--tg-foam-1),var(--tg-foam-2));
+  box-shadow:inset 0 1px 0 var(--tg-hairline),inset 0 -1px 0 var(--tg-edge),0 8px 20px -10px var(--tg-caustic);
+}
+.tg-slider::-moz-range-progress{height:var(--_h);border-radius:var(--tg-r-full) 0 0 var(--tg-r-full);background:linear-gradient(90deg,var(--tg-deep-1),var(--tg-deep-2))}
+.tg-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  appearance:none;
+  width:var(--_h);
+  height:var(--_h);
+  border:0;
+  border-radius:0;
+  background:linear-gradient(var(--tg-deep-2),var(--tg-deep-2)) center/var(--_bar) 62% no-repeat;
+}
+.tg-slider::-moz-range-thumb{
+  width:var(--_h);
+  height:var(--_h);
+  border:0;
+  border-radius:0;
+  background:linear-gradient(var(--tg-deep-2),var(--tg-deep-2)) center/var(--_bar) 62% no-repeat;
+}
+.tg-slider:active{--_bar:6px}
+
+/* Segmented control and tab bar share one gliding selection blob. */
+.tg-seg{display:inline-flex;padding:3px;border-radius:var(--tg-r-full)}
+.tg-seg-item{
+  position:relative;
+  z-index:1;
+  flex:1 1 0;
+  min-height:2.5rem;
+  padding:0 var(--tg-space-4);
+  border:0;
+  border-radius:var(--tg-r-full);
+  background:none;
+  color:var(--tg-text);
+  font:var(--tg-type-label-strong);
+  white-space:nowrap;
+  cursor:pointer;
+}
+.tg-blob{
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:0;
+  border-radius:var(--tg-r-full);
+  pointer-events:none;
+}
+.tg-tabbar{
+  display:flex;
+  align-items:stretch;
+  gap:2px;
+  min-height:3.75rem;
+  padding:4px;
+  border-radius:var(--tg-r-full);
+}
+.tg-tabbar.is-fill{flex:1}
+.tg-tab{
+  position:relative;
+  z-index:1;
+  flex:1 1 0;
+  min-width:3.75rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  padding:6px var(--tg-space-3);
+  border:0;
+  border-radius:var(--tg-r-full);
+  background:none;
+  color:var(--tg-text);
+  font:var(--tg-type-micro);
+  text-decoration:none;
+  cursor:pointer;
+}
+.tg-tab:is([aria-current]:not([aria-current="false"]),[aria-selected="true"]) .tg-icon{fill:color-mix(in srgb,currentColor 22%,transparent)}
+.tg-tab .tg-badge{position:absolute;top:2px;left:calc(50% + 4px)}
+
+/* Bubble: sea glass you read. Never dents on tap, never blurs. */
+.tg-bubble{
+  width:fit-content;
+  max-width:min(80%,34rem);
+  padding:7px var(--tg-space-3) 6px;
+  border-radius:20px;
+  font:var(--tg-type-body);
+  overflow-wrap:anywhere;
+}
+.tg-bubble.is-in{border-end-start-radius:6px;transform-origin:0 100%}
+.tg-bubble.is-out{margin-inline-start:auto;border-end-end-radius:6px;transform-origin:100% 100%;--_c1:var(--tg-shallow-1);--_c2:var(--tg-shallow-2)}
+.tg-bubble-meta{float:inline-end;margin:6px 0 -2px 10px;font:var(--tg-type-micro);font-weight:400;color:var(--tg-text-2);font-variant-numeric:tabular-nums}
+
+/* Overlays: menu, sheet, toast. Thick glass; they grow from what opened them. */
+.tg-menu{
+  position:absolute;
+  z-index:var(--tg-z-menu);
+  display:flex;
+  flex-direction:column;
+  min-width:13rem;
+  padding:6px;
+  border-radius:var(--tg-r-l);
+}
+.tg-menu-item{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:var(--tg-space-3);
+  min-height:var(--tg-size-target);
+  padding:0 var(--tg-space-3);
+  border:0;
+  border-radius:calc(var(--tg-r-l) - 6px);
+  background-color:color-mix(in srgb,var(--tg-tint) calc(var(--tg-press) * 14%),transparent);
+  color:var(--tg-text);
+  font:var(--tg-type-body);
+  text-align:start;
+  cursor:pointer;
+}
+.tg-menu-item .tg-icon{width:1.25rem;height:1.25rem}
+.tg-menu-item.is-danger{color:var(--tg-danger)}
+.tg-menu hr{width:calc(100% - 24px);height:1px;margin:4px auto;border:0;background:var(--tg-separator)}
+
+.tg-scrim{position:fixed;inset:0;z-index:var(--tg-z-sheet);background:var(--tg-scrim)}
+.tg-sheet{
+  position:fixed;
+  inset:auto 0 0 0;
+  z-index:var(--tg-z-sheet);
+  max-height:90dvh;
+  overflow:auto;
+  padding:var(--tg-space-2) var(--tg-space-4) calc(env(safe-area-inset-bottom,0px) + var(--tg-space-4));
+  border-radius:var(--tg-r-xl) var(--tg-r-xl) 0 0;
+  overscroll-behavior:contain;
+}
+.tg-grabber{display:block;width:36px;height:5px;margin:0 auto var(--tg-space-3);border-radius:var(--tg-r-full);background:color-mix(in srgb,var(--tg-text) 22%,transparent)}
+
+.tg-toast{
+  position:fixed;
+  left:50%;
+  bottom:calc(env(safe-area-inset-bottom,0px) + 104px);
+  z-index:var(--tg-z-toast);
+  translate:-50% 0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:var(--tg-size-target);
+  max-width:calc(100vw - 32px);
+  padding:0 var(--tg-space-4);
+  border-radius:var(--tg-r-full);
+  font:var(--tg-type-label-strong);
+}
+
+/* Lift keys: emoji and reaction pickers. */
+.tg-key{
+  position:relative;
+  display:inline-grid;
+  place-items:center;
+  width:var(--tg-size-target);
+  height:var(--tg-size-target);
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:none;
+  font-size:1.5rem;
+  line-height:1;
+  cursor:pointer;
+}
+
+/* Text link: no squash. Dims while pressed, fades back. */
+.tg-link{color:var(--tg-accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:opacity var(--tg-dur-fade) ease}
+.tg-link:active{opacity:.6;transition:none}
+
+/* Live status: the only loop allowed besides the hero. */
+.tg-typing{display:inline-flex;align-items:center;gap:4px;height:1.375rem}
+.tg-typing i{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.4;animation:tg-typing 1.2s ease-in-out infinite}
+.tg-typing i:nth-child(2){animation-delay:.15s}
+.tg-typing i:nth-child(3){animation-delay:.3s}
+@keyframes tg-typing{0%,60%,100%{transform:none;opacity:.4}30%{transform:translateY(-3px);opacity:1}}
+@keyframes tg-typing-fade{0%,60%,100%{opacity:.4}30%{opacity:1}}
+
+
+/* =====================================================================
+   14. Type and text utilities
+   ===================================================================== */
+
+.tg-type-title{font:var(--tg-type-title);letter-spacing:-.02em}
+.tg-type-heading{font:var(--tg-type-heading);letter-spacing:-.01em}
+.tg-type-body{font:var(--tg-type-body)}
+.tg-type-body-strong{font:var(--tg-type-body-strong)}
+.tg-type-label{font:var(--tg-type-label)}
+.tg-type-label-strong{font:var(--tg-type-label-strong)}
+.tg-type-micro{font:var(--tg-type-micro);letter-spacing:.01em}
+.tg-text-2{color:var(--tg-text-2)}
+.tg-accent{color:var(--tg-accent)}
+.tg-num{font-variant-numeric:tabular-nums}
+.tg-sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+
+/* =====================================================================
+   15. Accessibility. OS settings apply automatically; the same data
+       attributes on <html> let an app offer them as in-app settings.
+   ===================================================================== */
+
+/* Keyboard focus: a 2px outline in the accent, offset 2px, never animated. */
+:is(.tg-press,.tg-btn,.tg-icon-btn,.tg-orb,.tg-chip,.tg-tile,.tg-key,.tg-switch,.tg-slider,.tg-tab,.tg-seg-item,.tg-menu-item,.tg-row,.tg-link,[data-press]):focus-visible{
+  outline:2px solid var(--tg-accent);
+  outline-offset:2px;
+}
+
+/* Reduce motion: no squash, lean, stretch or bounce. Dent becomes a dim. */
+@media (prefers-reduced-motion:reduce){
+  :root:not([data-tg-motion="full"]){--tg-glide:ease;--tg-firm:ease;--tg-dur-glide:150ms;--tg-dur-firm:150ms}
+  :root:not([data-tg-motion="full"]) [data-tg-state="dent"]{transform:none!important;opacity:.85}
+  :root:not([data-tg-motion="full"]) :is([data-tg-state="peel"],[data-tg-state="held"]){animation:none}
+  :root:not([data-tg-motion="full"]) :is(.tg-enter,.tg-arrive,.tg-drop,.tg-sheet.tg-enter){animation:tg-fade-in var(--tg-dur-fade) linear both}
+  :root:not([data-tg-motion="full"]) :is(.tg-exit,.tg-sheet.tg-exit){animation:tg-fade-out var(--tg-dur-fade) linear both}
+  :root:not([data-tg-motion="full"]) .tg-typing i{animation-name:tg-typing-fade}
+}
+:root[data-tg-motion="reduce"]{--tg-glide:ease;--tg-firm:ease;--tg-dur-glide:150ms;--tg-dur-firm:150ms}
+[data-tg-motion="reduce"] [data-tg-state="dent"]{transform:none!important;opacity:.85}
+[data-tg-motion="reduce"] :is([data-tg-state="peel"],[data-tg-state="held"]){animation:none}
+[data-tg-motion="reduce"] :is(.tg-enter,.tg-arrive,.tg-drop,.tg-sheet.tg-enter){animation:tg-fade-in var(--tg-dur-fade) linear both}
+[data-tg-motion="reduce"] :is(.tg-exit,.tg-sheet.tg-exit){animation:tg-fade-out var(--tg-dur-fade) linear both}
+[data-tg-motion="reduce"] .tg-typing i{animation-name:tg-typing-fade}
+@keyframes tg-fade-out{to{opacity:0}}
+
+/* Reduce transparency: every floating surface turns Solid; the tide becomes a plain bar. */
+@media (prefers-reduced-transparency:reduce){
+  :is(.tg-thin,.tg-regular,.tg-thick){--_o:100%;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .tg-tide{--_veil:var(--tg-ground);--_feather:0px;box-shadow:0 1px 0 var(--tg-separator)}
+  .tg-tide-bottom{box-shadow:0 -1px 0 var(--tg-separator)}
+  .tg-tide::before{display:none}
+}
+[data-tg-transparency="reduce"] :is(.tg-thin,.tg-regular,.tg-thick){--_o:100%;-webkit-backdrop-filter:none;backdrop-filter:none}
+[data-tg-transparency="reduce"] .tg-tide{--_veil:var(--tg-ground);--_feather:0px;box-shadow:0 1px 0 var(--tg-separator)}
+[data-tg-transparency="reduce"] .tg-tide-bottom{box-shadow:0 -1px 0 var(--tg-separator)}
+[data-tg-transparency="reduce"] .tg-tide::before{display:none}
+
+/* Increase contrast: the rim becomes a plain line; secondary text becomes text.
+   !important so scope roots further down cannot undo a user setting. */
+@media (prefers-contrast:more){
+  :is(:root,.tg-theme,[data-tg-theme],[data-tg-brand]){
+    --tg-text-2:var(--tg-text)!important;
+    --tg-rim:linear-gradient(color-mix(in srgb,var(--tg-text) 40%,transparent) 0 0)!important;
+    --tg-rim-o:1!important;
+    --tg-separator:color-mix(in srgb,var(--tg-text) 30%,transparent)!important;
+  }
+}
+:is([data-tg-contrast="more"],[data-tg-contrast="more"] :is(.tg-theme,[data-tg-theme],[data-tg-brand])){
+  --tg-text-2:var(--tg-text)!important;
+  --tg-rim:linear-gradient(color-mix(in srgb,var(--tg-text) 40%,transparent) 0 0)!important;
+  --tg-rim-o:1!important;
+  --tg-separator:color-mix(in srgb,var(--tg-text) 30%,transparent)!important;
+}
+
+/* Forced colors (Windows contrast themes): system colors, real borders, no effects. */
+@media (forced-colors:active){
+  :is(.tg-glass,.tg-card,.tg-list,.tg-bubble,.tg-sheet,.tg-menu,.tg-toast,.tg-field,.tg-seg,
+      .tg-jelly,.tg-deep,.tg-btn,.tg-icon-btn,.tg-orb,.tg-chip,.tg-tile,.tg-tabbar,.tg-composer,.tg-pill,.tg-avatar,.tg-thumb){
+    background:Canvas;
+    color:CanvasText;
+    border:1px solid CanvasText;
+    box-shadow:none;
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+  }
+  :is(.tg-glass,.tg-card,.tg-list,.tg-bubble,.tg-sheet,.tg-menu,.tg-toast,.tg-field,.tg-seg,
+      .tg-jelly,.tg-deep,.tg-btn,.tg-icon-btn,.tg-orb,.tg-chip,.tg-tile,.tg-tabbar,.tg-composer,.tg-pill,.tg-avatar,.tg-blob,.tg-thumb)::after{display:none}
+  .tg-blob{forced-color-adjust:none;background:Highlight}
+  .tg-tile:is([aria-pressed="true"],[aria-checked="true"]),.tg-chip:is([aria-pressed="true"],[aria-selected="true"]){background:Highlight;color:HighlightText}
+  .tg-tide{--_feather:0px;background:Canvas}
+  .tg-tide::before,.tg-ground::after,.tg-grain::before{display:none}
+}
+
+@media print{
+  .tg-tide::before,.tg-ground::after,.tg-grain::before{display:none}
+  :is(.tg-thin,.tg-regular,.tg-thick){--_o:100%;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .tg-tide{position:static}
+}

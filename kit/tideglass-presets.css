@@ -1,0 +1,23 @@
+/*!
+ * Tideglass 1.0.0 presets: six brand starts named after real sea glass colors.
+ * Load after tideglass.css, then set data-tg-brand on <html> or on any section.
+ * Each preset passes every contrast pair in light and dark (`npm run check`).
+ */
+
+/* Seafoam: the default. Same values as the brand inputs in tideglass.css. */
+[data-tg-brand="seafoam"]{--tg-tint:#4DB6BC;--tg-deep:#0E6670;--tg-ink:#0F2A2E;--tg-rim-a:#BDE6FF;--tg-rim-b:#F4B8E4;--tg-rim-c:#FFE4A6}
+
+/* Cornflower: the soft blue of old medicine bottles. */
+[data-tg-brand="cornflower"]{--tg-tint:#7FA6E3;--tg-deep:#24509E;--tg-ink:#13203A;--tg-rim-a:#C9DEFF;--tg-rim-b:#E9C6F5;--tg-rim-c:#FFE2B8}
+
+/* Lavender: clear glass turned violet by manganese and sun. */
+[data-tg-brand="lavender"]{--tg-tint:#A894D8;--tg-deep:#5A3F9C;--tg-ink:#221A38;--tg-rim-a:#D9CCFF;--tg-rim-b:#F7C2E2;--tg-rim-c:#CDEBFF}
+
+/* Amber: brown bottle glass, warm and common on every shore. */
+[data-tg-brand="amber"]{--tg-tint:#E2A35E;--tg-deep:#8A4A12;--tg-ink:#2E1D0E;--tg-rim-a:#FFE0B3;--tg-rim-b:#F7C1C1;--tg-rim-c:#D7EEDB}
+
+/* Kelly: bright bottle green. */
+[data-tg-brand="kelly"]{--tg-tint:#6EC28F;--tg-deep:#1C6A3E;--tg-ink:#10291B;--tg-rim-a:#CDF2DA;--tg-rim-b:#FFE2A8;--tg-rim-c:#C6E3FF}
+
+/* Coral: the rare pink piece everyone keeps. */
+[data-tg-brand="coral"]{--tg-tint:#EE9A9A;--tg-deep:#A23A48;--tg-ink:#33161B;--tg-rim-a:#FFD3C9;--tg-rim-b:#FFE4A6;--tg-rim-c:#D3E4FF}
